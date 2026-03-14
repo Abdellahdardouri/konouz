@@ -29,8 +29,6 @@ const AboutUs = dynamic(() => import('@/components/sections/AboutUs'), {
   loading
 });
 
-export const runtime = 'edge';
-
 export const metadata = {
   description:
     'كنوز - متجر منتجات البيت للمغرب. اكتشف مجموعتنا من أدوات المطبخ والتنظيم والأجهزة الصغيرة',

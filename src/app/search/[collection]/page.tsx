@@ -6,8 +6,6 @@ import Grid from '@/components/grid';
 import ProductGridItems from '@/components/layout/product-grid-items';
 import { defaultSort, sorting } from '@/lib/constants';
 
-export const runtime = 'edge';
-
 const collectionNames: Record<string, string> = {
   kitchen: 'المطبخ',
   organization: 'تنظيم المنزل',

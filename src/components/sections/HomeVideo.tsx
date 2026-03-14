@@ -16,9 +16,7 @@ const HomeVideo = () => {
         preload="auto"
         className="absolute h-full w-full object-cover"
       >
-        <source src="/videos/hero-103.mov" type="video/mp4" />
-        <source src="/videos/hero-103.mov" type="video/quicktime" />
-        <source src="/videos/clothing-shoot.mp4" type="video/mp4" />
+        <source src="/videos/hero-103.mp4" type="video/mp4" />
       </video>
 
       {/* Dark overlay */}

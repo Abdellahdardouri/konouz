@@ -16,7 +16,8 @@ module.exports = {
         veryLightPurple: '#eeeefe'
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--cairo)', 'var(--font-geist-sans)', 'sans-serif'],
+        cairo: ['var(--cairo)', 'sans-serif'],
         // quicksand: ['Quicksand', 'sans-serif'],
         // lora: ['Lora', 'serif']
         lora: ['var(--lora)'],

@@ -8,7 +8,7 @@ import socialMediaItems from '@/data/social-media.json';
 const SocialMedia = () => {
   return (
     <div className="flex w-full flex-col items-center gap-3 md:items-start md:justify-start">
-      <h3 className="text-[20px] font-semibold text-veryDarkPurple">Follow us</h3>
+      <h3 className="text-[20px] font-semibold text-veryDarkPurple">تابعنا</h3>
       <div className="flex w-full items-center justify-center gap-4 [&_a]:transition-all [&_a]:duration-300 hover:[&_a]:rounded-full hover:[&_a]:shadow-sm hover:[&_a]:brightness-75">
         {socialMediaItems.map((socialMediaItem, i) => (
           <Link

@@ -15,14 +15,14 @@ function SubmitButton({
   selectedVariantId: string | undefined;
 }) {
   const { pending } = useFormStatus();
-  const buttonClasses = 'text-[22px] font-quicksand';
+  const buttonClasses = 'text-[22px] font-cairo';
   // 'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
   const disabledClasses = 'btn-cart-disabled cursor-not-allowed opacity-60 hover:opacity-60';
 
   if (!availableForSale) {
     return (
       <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
-        Out Of Stock
+        غير متوفر
       </button>
     );
   }
@@ -30,7 +30,7 @@ function SubmitButton({
   if (!selectedVariantId) {
     return (
       <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
-        Please select an option
+        اختر خياراً
       </button>
     );
   }
@@ -61,7 +61,7 @@ function SubmitButton({
           />{' '}
         </>
       )}
-      Add To Cart
+      أضف إلى السلة
     </button>
   );
 }

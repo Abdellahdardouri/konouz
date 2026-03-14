@@ -1,12 +1,22 @@
 [
   {
-    "title": "Dresses",
-    "image": "https://cdn.shopify.com/s/files/1/0636/4417/2477/files/lb-01.jpg?v=1700507459",
-    "url": "/search/dresses"
+    "title": "المطبخ",
+    "image": "https://images.pexels.com/photos/4397897/pexels-photo-4397897.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/search/kitchen"
   },
   {
-    "title": "Outer",
-    "image": "https://cdn.shopify.com/s/files/1/0636/4417/2477/files/3500023Y0189_x1_a023.jpg?v=1700515756",
-    "url": "/search/outer"
+    "title": "تنظيم المنزل",
+    "image": "https://images.pexels.com/photos/4990270/pexels-photo-4990270.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/search/organization"
+  },
+  {
+    "title": "الأجهزة الصغيرة",
+    "image": "https://images.pexels.com/photos/5718069/pexels-photo-5718069.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/search/appliances"
+  },
+  {
+    "title": "الحمام والتنظيف",
+    "image": "https://images.pexels.com/photos/6197122/pexels-photo-6197122.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/search/bathroom"
   }
 ]

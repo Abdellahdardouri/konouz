@@ -52,25 +52,26 @@ const ProductDescription = ({ product }: { product: Product }) => {
 
   const price = currentCombinationPrice || product.priceRange.minVariantPrice.amount;
   return (
-    <div className="sticky top-1 flex flex-col items-start justify-start gap-4 px-6 font-lora text-darkPurple">
+    <div className="sticky top-1 flex flex-col items-start justify-start gap-4 px-6 font-cairo text-darkPurple">
       <h2 className="hidden text-[clamp(28px,18px_+_2vw,40px)] font-bold leading-[1] md:block">
         {product.title}
       </h2>
-      <p className="text-[32px]">
-        {Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(Number(price))}
-      </p>
+      <p className="text-[32px]">{Number(price).toFixed(0)} د.م.</p>
       <div className="h-[1px] w-full bg-purple"></div>
       <VariantSelector options={product.options} combinations={combinations} />
       <div>
-        <p className="mb-2 text-[26px]">Description</p>
+        <p className="mb-2 text-[26px]">الوصف</p>
         <div
           dangerouslySetInnerHTML={{ __html: product.descriptionHtml as string }}
-          className="font-quicksand text-[18px] text-darkPurple"
+          className="font-cairo text-[18px] text-darkPurple"
         />
       </div>
       <div className="my-2 h-[1px] w-full bg-purple"></div>
       <div className="w-full">
         <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+        <p className="mt-2 text-center font-cairo text-sm text-darkPurple/70">
+          ✓ توصيل مجاني في سيدي قاسم خلال 24 ساعة | ✓ الدفع عند الاستلام
+        </p>
       </div>
     </div>
   );

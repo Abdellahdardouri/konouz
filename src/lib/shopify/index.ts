@@ -5,6 +5,13 @@ import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
+  getMockCollectionProducts,
+  getMockCollections,
+  getMockMenu,
+  getMockProduct,
+  getMockProducts
+} from '@/lib/mock-data';
+import {
   addToCartMutation,
   createCartMutation,
   editCartItemsMutation,
@@ -271,6 +278,9 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
+  if (!domain) {
+    return getMockCollections().find((c) => c.handle === handle);
+  }
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
@@ -293,6 +303,9 @@ export async function getCollectionProducts({
   sortKey?: string;
   first?: number;
 }): Promise<Product[]> {
+  if (!domain) {
+    return getMockCollectionProducts(collection);
+  }
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
@@ -313,6 +326,9 @@ export async function getCollectionProducts({
 }
 
 export async function getCollections(): Promise<Collection[]> {
+  if (!domain) {
+    return getMockCollections();
+  }
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
     tags: [TAGS.collections]
@@ -341,6 +357,9 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
+  if (!domain) {
+    return getMockMenu();
+  }
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
@@ -367,6 +386,17 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 }
 
 export async function getPage(handle: string): Promise<Page> {
+  if (!domain) {
+    return {
+      id: handle,
+      title: handle,
+      body: '',
+      bodySummary: '',
+      seo: { title: handle, description: '' },
+      createdAt: '',
+      updatedAt: ''
+    } as Page;
+  }
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
     variables: { handle }
@@ -376,6 +406,9 @@ export async function getPage(handle: string): Promise<Page> {
 }
 
 export async function getPages(): Promise<Page[]> {
+  if (!domain) {
+    return [];
+  }
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery
   });
@@ -384,6 +417,9 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
+  if (!domain) {
+    return getMockProduct(handle);
+  }
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
@@ -396,6 +432,12 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 }
 
 export async function getProductRecommendations(productId: string, first = 3): Promise<Product[]> {
+  if (!domain) {
+    // Return other products as recommendations (exclude the current product by id)
+    return getMockProducts()
+      .filter((p) => p.id !== productId)
+      .slice(0, first);
+  }
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],
@@ -418,6 +460,10 @@ export async function getProducts({
   sortKey?: string;
   first?: number;
 }): Promise<Product[]> {
+  if (!domain) {
+    const all = getMockProducts();
+    return first ? all.slice(0, first) : all;
+  }
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     tags: [TAGS.products],

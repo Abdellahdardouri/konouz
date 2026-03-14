@@ -8,6 +8,18 @@ import { defaultSort, sorting } from '@/lib/constants';
 
 export const runtime = 'edge';
 
+const collectionNames: Record<string, string> = {
+  kitchen: 'المطبخ',
+  organization: 'تنظيم المنزل',
+  appliances: 'الأجهزة الصغيرة',
+  bathroom: 'الحمام والتنظيف',
+  'new-arrivals': 'وصل حديثاً',
+  'best-sellers': 'الأكثر طلباً',
+  'kitchen-tools': 'أدوات المطبخ',
+  cooking: 'التحضير والطبخ',
+  organizers: 'علب ومنظمات'
+};
+
 export async function generateMetadata({
   params
 }: {
@@ -18,9 +30,11 @@ export async function generateMetadata({
   if (!collection) return notFound();
 
   return {
-    title: collection.seo?.title || collection.title,
+    title: collection.seo?.title || collectionNames[params.collection] || collection.title,
     description:
-      collection.seo?.description || collection.description || `${collection.title} products`
+      collection.seo?.description ||
+      collection.description ||
+      `منتجات ${collectionNames[params.collection] || collection.title}`
   };
 }
 
@@ -38,11 +52,11 @@ export default async function CategoryPage({
   return (
     <section>
       {products.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
+        <p className="py-3 text-lg">{`لا توجد منتجات في هذا القسم`}</p>
       ) : (
         <div className="flex flex-col items-center justify-center gap-[48px]">
-          <h2 className="font-lora text-3xl font-bold capitalize text-darkPurple">
-            {params.collection.replace('-', ' ')}
+          <h2 className="font-cairo text-3xl font-bold text-darkPurple">
+            {collectionNames[params.collection] || params.collection}
           </h2>
           <Grid className="grid-cols-1 items-start justify-center sm:grid-cols-2 lg:grid-cols-3">
             <ProductGridItems products={products} />

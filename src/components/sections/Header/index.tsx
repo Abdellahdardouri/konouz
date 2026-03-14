@@ -17,9 +17,9 @@ const Header = async () => {
   const menu = await getMenu('main-menu');
   return (
     <header className="flex w-full items-center justify-center border-b border-purple bg-white/80 px-[8px] py-[4px] md:h-[80px] md:py-0 xl:px-[48px]">
-      <h1 className="sr-only">Rumusha</h1>
+      <h1 className="sr-only">كنوز</h1>
       <nav className="flex h-full w-full max-w-full items-center justify-between md:w-[1440px]">
-        <h2 className="sr-only">Main Navigation Menu</h2>
+        <h2 className="sr-only">القائمة الرئيسية</h2>
         <div className="flex h-full w-full items-center justify-between">
           <div className="md:hidden">
             <MobileMenu menu={menu} />

@@ -8,7 +8,7 @@ const Categories = async () => {
   const menu = await getMenu('main-menu');
   return (
     <div className="flex w-full flex-col items-center justify-center md:w-auto md:items-start md:justify-start">
-      <h3 className="text-[20px] font-semibold text-veryDarkPurple">Navigation</h3>
+      <h3 className="text-[20px] font-semibold text-veryDarkPurple">المتجر</h3>
       <div className="mt-4 flex flex-col items-start justify-start gap-2 md:mt-2">
         {menu.map((menuItem, i) => (
           <div

@@ -34,15 +34,15 @@ export default async function Page({ params }: { params: { page: string } }) {
 
   return (
     <>
-      <h1 className="mb-8 text-center font-lora text-[clamp(32px,20px_+_2vw,40px)] font-bold text-darkPurple md:mb-16">
+      <h1 className="mb-8 text-center font-cairo text-[clamp(32px,20px_+_2vw,40px)] font-bold text-darkPurple md:mb-16">
         {page.title}
       </h1>
       <div
         dangerouslySetInnerHTML={{ __html: page.body as string }}
-        className="leading-lose text-center text-[18px] text-purple prose-headings:my-8 prose-headings:font-lora prose-headings:text-[clamp(24px,16px_+_2vw,30px)] prose-headings:font-semibold prose-headings:text-darkPurple md:text-left"
+        className="leading-lose text-center text-[18px] text-purple prose-headings:my-8 prose-headings:font-cairo prose-headings:text-[clamp(24px,16px_+_2vw,30px)] prose-headings:font-semibold prose-headings:text-darkPurple md:text-left"
       />
       <p className="mt-16 text-sm italic leading-relaxed text-purple md:leading-normal">
-        {`This document was last updated on ${new Intl.DateTimeFormat(undefined, {
+        {`آخر تحديث لهذه الصفحة: ${new Intl.DateTimeFormat('ar-MA', {
           year: 'numeric',
           month: 'long',
           day: 'numeric'

@@ -35,7 +35,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
         <Hamburger
           toggled={isOpen}
           onToggle={() => setIsOpen(!isOpen)}
-          label="Open mobile menu"
+          label="افتح القائمة"
           size={30}
         />
       </div>
@@ -67,7 +67,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   <Hamburger
                     toggled={isOpen}
                     onToggle={() => setIsOpen(!isOpen)}
-                    label="Close mobile menu"
+                    label="أغلق القائمة"
                     size={30}
                   />
                 </div>

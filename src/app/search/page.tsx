@@ -7,8 +7,8 @@ import { getProducts } from '@/lib/shopify';
 export const runtime = 'edge';
 
 export const metadata = {
-  title: 'Search',
-  description: 'Search for products in the store.'
+  title: 'البحث',
+  description: 'ابحث عن منتجات كنوز'
 };
 
 export default async function SearchPage({
@@ -20,21 +20,21 @@ export default async function SearchPage({
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
   const products = await getProducts({ sortKey, reverse, query: searchValue });
-  const resultsText = products.length > 1 ? 'results' : 'result';
+  const resultsText = products.length > 1 ? 'نتائج' : 'نتيجة';
 
   return (
     <>
       {searchValue ? (
         <p>
           {products.length === 0
-            ? 'There are no products that match '
-            : `Showing ${products.length} ${resultsText} for `}
+            ? 'لا توجد منتجات تطابق '
+            : `تم إيجاد ${products.length} ${resultsText} لـ `}
           <span className="font-bold">&quot;{searchValue}&quot;</span>
         </p>
       ) : null}
 
       <div className="flex-none">
-        <FilterList list={sorting} title="Sort by" />
+        <FilterList list={sorting} title="ترتيب حسب" />
       </div>
 
       {products.length > 0 ? (

@@ -1,5 +1,4 @@
 import { getCollections, getPages, getProducts } from '@/lib/shopify';
-import { validateEnvironmentVariables } from '@/lib/utils';
 import { MetadataRoute } from 'next';
 
 type Route = {
@@ -7,17 +6,22 @@ type Route = {
   lastModified: string;
 };
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? 'https://clothing-store.rashidshamloo.com'
-  : 'http://localhost:3000';
+const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://konouz.ma' : 'http://localhost:3000';
+
+const hasShopify = !!(
+  process.env.SHOPIFY_STORE_DOMAIN && process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
+);
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  validateEnvironmentVariables();
-
-  const routesMap = [''].map((route) => ({
+  const routesMap = ['', '/about-us', '/search'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString()
   }));
+
+  if (!hasShopify) {
+    // Return static routes when Shopify is not configured
+    return routesMap;
+  }
 
   const collectionsPromise = getCollections().then((collections) =>
     collections.map((collection) => ({

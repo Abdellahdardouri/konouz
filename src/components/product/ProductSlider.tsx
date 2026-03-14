@@ -1,123 +1,133 @@
 'use client';
 
-// react
 import { useRef, useState } from 'react';
-
-// next
 import Image from 'next/image';
-
-//clsx
 import clsx from 'clsx';
-
-// swiper
-import { A11y, Navigation, Thumbs } from 'swiper/modules';
+import { A11y, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
-
-// swiper styles
 import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-
-// types
 import { Product } from '@/lib/shopify/types';
 
 const ProductSlider = ({ product }: { product: Product }) => {
-  // swiper
-  const [isStart, setIsStart] = useState(false);
-  const [isEnd, setIsEnd] = useState(false);
-  const swiper = useRef<SwiperClass | null>(null);
-  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
+  const mainSwiper = useRef<SwiperClass | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isStart, setIsStart] = useState(true);
+  const [isEnd, setIsEnd] = useState(product.images.length <= 1);
 
   return (
-    <div className="sticky top-1">
-      <div className="flex flex-col items-center justify-center gap-[24px] pb-[24px] md:hidden">
-        <h2 className="font-lora text-[clamp(28px,18px_+_2vw,40px)] font-bold leading-[1] text-darkPurple">
+    <div className="sticky top-4">
+      {/* Mobile title */}
+      <div className="mb-4 md:hidden">
+        <h2 className="font-cairo text-[clamp(22px,5vw,32px)] font-bold text-darkPurple">
           {product.title}
         </h2>
       </div>
-      <div className="relative">
-        <Swiper
-          modules={[Navigation, A11y, Thumbs]}
-          navigation={{ nextEl: 'swiper-button-next', prevEl: 'swiper-button-prev' }}
-          thumbs={{
-            swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
-          }}
-          onSwiper={(s) => {
-            swiper.current = s;
-          }}
-          onSlidesUpdated={(s) => {
-            setIsEnd(s.isEnd);
-            setIsStart(s.isBeginning);
-          }}
-          onSlideChange={(s) => {
-            setIsEnd(s.isEnd);
-            setIsStart(s.isBeginning);
-          }}
-          className="w-full max-w-[80%] rounded-[16px]"
-        >
+
+      {/* Gallery: thumbnails LEFT + main image RIGHT — forced LTR */}
+      <div className="flex flex-col-reverse gap-3 md:flex-row md:gap-4" dir="ltr">
+        {/* Thumbnail strip */}
+        <div className="flex flex-row gap-2 overflow-x-auto pb-1 md:max-h-[520px] md:flex-col md:overflow-y-auto md:overflow-x-visible md:pb-0">
           {product.images.map((image, i) => (
-            <SwiperSlide className="relative aspect-[7/10] cursor-pointer" key={i}>
+            <button
+              key={i}
+              onClick={() => {
+                mainSwiper.current?.slideTo(i);
+                setActiveIndex(i);
+              }}
+              className={clsx(
+                'relative h-[72px] w-[58px] flex-shrink-0 overflow-hidden rounded-[8px] border-2 transition-all duration-200',
+                activeIndex === i
+                  ? 'border-veryDarkPurple'
+                  : 'border-transparent hover:border-purple'
+              )}
+            >
               <Image
                 src={image.url || ''}
-                alt={product.title}
+                alt={`${product.title} ${i + 1}`}
                 fill
                 className="object-cover"
-                sizes="(min-width: 768px) 25vw, 80vw"
-                priority={i === 0}
+                sizes="58px"
+                unoptimized
               />
-            </SwiperSlide>
+            </button>
           ))}
-        </Swiper>
-        <button
-          className={clsx(
-            'absolute right-[1%] top-1/2 font-[swiper-icons] text-[40px] transition-all duration-300 will-change-transform -translate-y-1/2',
-            {
-              'text-purple hover:text-darkPurple hover:drop-shadow-lg hover:scale-110': !isEnd,
-              'text-purple/30': isEnd
-            }
-          )}
-          onClick={() => swiper.current?.slideNext()}
-          disabled={isEnd}
+        </div>
+
+        {/* Main image swiper */}
+        <div
+          className="relative flex-1 overflow-hidden rounded-[16px]"
+          style={{ aspectRatio: '4/5' }}
         >
-          next
-        </button>
-        <button
-          className={clsx(
-            'absolute left-[1%] top-1/2 font-[swiper-icons] text-[40px] transition-all duration-300 will-change-transform -translate-y-1/2',
-            {
-              'text-purple hover:text-darkPurple hover:drop-shadow-lg hover:scale-110': !isStart,
-              'text-purple/30': isStart
-            }
-          )}
-          onClick={() => swiper.current?.slidePrev()}
-          disabled={isStart}
-        >
-          prev
-        </button>
-      </div>
-      <Swiper
-        modules={[Thumbs]}
-        watchSlidesProgress
-        onSwiper={setThumbsSwiper}
-        slidesPerView="auto"
-        spaceBetween={8}
-        className="mt-4 [&_.swiper-slide-thumb-active]:border-darkPurple [&_not(.swiper-slide-thumb-active)]:border-transparent"
-      >
-        {product.images.map((image, i) => (
-          <SwiperSlide
-            className="relative aspect-[7/10] !w-[100px] cursor-pointer overflow-hidden rounded-[8px] border-2"
-            key={i}
+          <Swiper
+            modules={[A11y, Thumbs]}
+            onSwiper={(s) => {
+              mainSwiper.current = s;
+            }}
+            onSlideChange={(s) => {
+              setActiveIndex(s.activeIndex);
+              setIsStart(s.isBeginning);
+              setIsEnd(s.isEnd);
+            }}
+            className="h-full w-full rounded-[16px]"
           >
-            <Image
-              src={image.url || ''}
-              alt={product.title}
-              fill
-              className="object-cover"
-              sizes="(min-width: 768px) 100px, 25vw"
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            {product.images.map((image, i) => (
+              <SwiperSlide key={i} className="relative h-full w-full">
+                <Image
+                  src={image.url || ''}
+                  alt={product.title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 768px) 45vw, 100vw"
+                  priority={i === 0}
+                  unoptimized
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Prev arrow */}
+          {!isStart && (
+            <button
+              className="absolute left-2 top-1/2 z-10 rounded-full bg-white/80 p-2 shadow-md transition -translate-y-1/2 hover:bg-white hover:scale-110"
+              onClick={() => mainSwiper.current?.slidePrev()}
+              aria-label="Previous"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              >
+                <polyline points="15,18 9,12 15,6" />
+              </svg>
+            </button>
+          )}
+
+          {/* Next arrow */}
+          {!isEnd && (
+            <button
+              className="absolute right-2 top-1/2 z-10 rounded-full bg-white/80 p-2 shadow-md transition -translate-y-1/2 hover:bg-white hover:scale-110"
+              onClick={() => mainSwiper.current?.slideNext()}
+              aria-label="Next"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              >
+                <polyline points="9,18 15,12 9,6" />
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -39,7 +39,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   return (
     <>
       <button
-        aria-label="Open cart"
+        aria-label="افتح السلة"
         onClick={openCart}
         className="header-link ml-4 [&>*]:transition-all [&>*]:duration-300 hover:[&>*]:opacity-50"
       >
@@ -61,27 +61,25 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
           <Transition.Child
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
-            enterFrom="translate-x-full"
+            enterFrom="-translate-x-full"
             enterTo="translate-x-0"
             leave="transition-all ease-in-out duration-200"
             leaveFrom="translate-x-0"
-            leaveTo="translate-x-full"
+            leaveTo="-translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-lightPurple bg-white/70 px-4 pb-6 pt-2 text-darkPurple backdrop-blur-lg md:w-[390px]">
+            <Dialog.Panel className="fixed bottom-0 left-0 top-0 flex h-full w-full flex-col border-r border-lightPurple bg-white/70 px-4 pb-6 pt-2 text-darkPurple backdrop-blur-lg md:w-[390px]">
               <div className="flex items-center justify-between">
-                <p className="font-lora text-[28px] font-bold">My Cart</p>
+                <p className="font-cairo text-[28px] font-bold">سلة التسوق</p>
 
-                <button aria-label="Close cart" onClick={closeCart}>
+                <button aria-label="أغلق السلة" onClick={closeCart}>
                   <CloseCart />
                 </button>
               </div>
 
               {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
-                  <Image src="/images/cart.png" width="36" height="36" alt="cart" />
-                  <p className="mt-6 text-center font-quicksand text-2xl font-bold">
-                    Your cart is empty.
-                  </p>
+                  <Image src="/images/cart.png" width="36" height="36" alt="سلة" />
+                  <p className="mt-6 text-center font-cairo text-2xl font-bold">سلتك فارغة</p>
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
@@ -125,7 +123,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                               </div>
 
                               <div className="flex flex-1 flex-col  ">
-                                <span className="font-lora text-base font-bold leading-tight">
+                                <span className="font-cairo text-base font-bold leading-tight">
                                   {item.merchandise.product.title}
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
@@ -143,7 +141,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                               />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-[8px] bg-lightPurple">
                                 <EditItemQuantityButton item={item} type="minus" />
-                                <p className="w-6 border-x-2 border-purple/50 text-center font-lora font-bold leading-[1]">
+                                <p className="w-6 border-x-2 border-purple/50 text-center font-cairo font-bold leading-[1]">
                                   <span className="w-full">{item.quantity}</span>
                                 </p>
                                 <EditItemQuantityButton item={item} type="plus" />
@@ -154,9 +152,9 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       );
                     })}
                   </ul>
-                  <div className="py-4 font-lora text-sm font-bold">
+                  <div className="py-4 font-cairo text-sm font-bold">
                     <div className="mb-3 flex items-center justify-between border-b border-purple pb-1">
-                      <p>Taxes</p>
+                      <p>الضريبة</p>
                       <Price
                         className="text-right text-base"
                         amount={cart.cost.totalTaxAmount.amount}
@@ -164,20 +162,23 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       />
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-purple pb-1 pt-1">
-                      <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
+                      <p>التوصيل</p>
+                      <p className="text-right">مجاني في سيدي قاسم</p>
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-purple pb-1 pt-1">
-                      <p>Total</p>
+                      <p>المجموع</p>
                       <Price
                         className="text-right text-base"
                         amount={cart.cost.totalAmount.amount}
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
                     </div>
+                    <p className="mt-1 text-center font-cairo text-xs font-normal text-darkPurple/70">
+                      الدفع عند الاستلام متاح
+                    </p>
                   </div>
                   <a href={cart.checkoutUrl} className="btn-dark text-center">
-                    Proceed to Checkout
+                    إتمام الطلب
                   </a>
                 </div>
               )}

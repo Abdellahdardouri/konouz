@@ -19,7 +19,7 @@ const trustPoints = [
 const TrustBlock = () => {
   return (
     <section className="flex w-full items-center justify-center bg-veryLightPurple py-10 md:py-14">
-      <div className="flex w-full max-w-[95%] flex-col items-center gap-6 md:max-w-[904px] md:flex-row md:gap-8">
+      <div className="flex w-full max-w-[95%] flex-col items-stretch gap-6 md:max-w-[904px] md:flex-row md:gap-8">
         {trustPoints.map((point, i) => (
           <div
             key={i}

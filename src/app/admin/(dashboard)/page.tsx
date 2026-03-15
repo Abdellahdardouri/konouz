@@ -89,19 +89,17 @@ function StatCard({
   suffix?: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:block sm:p-5">
-      <div className={`shrink-0 rounded-lg p-2 sm:mb-2 sm:inline-flex sm:p-2.5 ${color}`}>
+    <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+      <div className={`mb-1.5 inline-flex rounded-lg p-1.5 sm:mb-2 sm:p-2.5 ${color}`}>
         <Icon className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={1.5} />
       </div>
-      <div className="min-w-0">
-        <p className="font-cairo text-xs text-warm-gray">{label}</p>
-        <p className="font-cairo text-base font-bold text-espresso sm:mt-1 sm:text-2xl">
-          {value}
-          {suffix && (
-            <span className="mr-1 text-xs font-normal text-warm-gray sm:text-sm">{suffix}</span>
-          )}
-        </p>
-      </div>
+      <p className="font-cairo text-[11px] text-warm-gray sm:text-xs">{label}</p>
+      <p className="font-cairo text-lg font-bold text-espresso sm:mt-1 sm:text-2xl">
+        {value}
+        {suffix && (
+          <span className="mr-1 text-[10px] font-normal text-warm-gray sm:text-sm">{suffix}</span>
+        )}
+      </p>
     </div>
   );
 }
@@ -110,11 +108,11 @@ function RevenueChart({ data }: { data: RevenuePoint[] }) {
   if (!data.length) return <p className="text-center text-warm-gray">لا توجد بيانات</p>;
 
   const max = Math.max(...data.map((d) => Number(d.revenue)), 1);
-  const last7 = data.slice(-14);
+  const last14 = data.slice(-14);
 
   return (
     <div className="flex h-28 items-end gap-0.5 sm:h-48 sm:gap-1">
-      {last7.map((d) => {
+      {last14.map((d) => {
         const height = Math.max((Number(d.revenue) / max) * 100, 2);
         return (
           <div key={d.date} className="group relative flex flex-1 flex-col items-center">
@@ -178,93 +176,44 @@ export default function AdminDashboardPage() {
     <div className="space-y-4 sm:space-y-6">
       <h1 className="font-cairo text-lg font-bold text-espresso sm:text-2xl">لوحة التحكم</h1>
 
-      {/* KPI Cards — horizontal scroll on mobile, grid on desktop */}
-      <div className="-mx-3 sm:mx-0">
-        {/* Mobile: horizontal scroll */}
-        <div className="flex gap-3 overflow-x-auto px-3 pb-2 sm:hidden">
-          <div className="w-[160px] shrink-0">
-            <StatCard
-              label="إجمالي المبيعات"
-              value={Number(overview?.totalRevenue || 0).toFixed(0)}
-              suffix="د.م."
-              icon={DollarSign}
-              color="bg-green-100 text-green-700"
-            />
-          </div>
-          <div className="w-[160px] shrink-0">
-            <StatCard
-              label="عدد الطلبات"
-              value={overview?.totalOrders || 0}
-              icon={ShoppingCart}
-              color="bg-blue-100 text-blue-700"
-            />
-          </div>
-          <div className="w-[160px] shrink-0">
-            <StatCard
-              label="العملاء"
-              value={overview?.totalCustomers || 0}
-              icon={Users}
-              color="bg-purple-100 text-purple-700"
-            />
-          </div>
-          <div className="w-[160px] shrink-0">
-            <StatCard
-              label="متوسط الطلب"
-              value={Number(overview?.avgOrderValue || 0).toFixed(0)}
-              suffix="د.م."
-              icon={TrendingUp}
-              color="bg-gold/20 text-gold-dark"
-            />
-          </div>
-          <div className="w-[160px] shrink-0">
-            <StatCard
-              label="طلبات معلقة"
-              value={overview?.pendingOrders || 0}
-              icon={Clock}
-              color="bg-yellow-100 text-yellow-700"
-            />
-          </div>
-        </div>
-
-        {/* Desktop: grid */}
-        <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-5">
-          <StatCard
-            label="إجمالي المبيعات"
-            value={Number(overview?.totalRevenue || 0).toFixed(0)}
-            suffix="د.م."
-            icon={DollarSign}
-            color="bg-green-100 text-green-700"
-          />
-          <StatCard
-            label="عدد الطلبات"
-            value={overview?.totalOrders || 0}
-            icon={ShoppingCart}
-            color="bg-blue-100 text-blue-700"
-          />
-          <StatCard
-            label="العملاء"
-            value={overview?.totalCustomers || 0}
-            icon={Users}
-            color="bg-purple-100 text-purple-700"
-          />
-          <StatCard
-            label="متوسط قيمة الطلب"
-            value={Number(overview?.avgOrderValue || 0).toFixed(0)}
-            suffix="د.م."
-            icon={TrendingUp}
-            color="bg-gold/20 text-gold-dark"
-          />
-          <StatCard
-            label="طلبات معلقة"
-            value={overview?.pendingOrders || 0}
-            icon={Clock}
-            color="bg-yellow-100 text-yellow-700"
-          />
-        </div>
+      {/* KPI Cards — 2-col grid on mobile, 5-col on desktop */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 lg:grid-cols-5">
+        <StatCard
+          label="إجمالي المبيعات"
+          value={Number(overview?.totalRevenue || 0).toFixed(0)}
+          suffix="د.م."
+          icon={DollarSign}
+          color="bg-green-100 text-green-700"
+        />
+        <StatCard
+          label="عدد الطلبات"
+          value={overview?.totalOrders || 0}
+          icon={ShoppingCart}
+          color="bg-blue-100 text-blue-700"
+        />
+        <StatCard
+          label="العملاء"
+          value={overview?.totalCustomers || 0}
+          icon={Users}
+          color="bg-purple-100 text-purple-700"
+        />
+        <StatCard
+          label="متوسط الطلب"
+          value={Number(overview?.avgOrderValue || 0).toFixed(0)}
+          suffix="د.م."
+          icon={TrendingUp}
+          color="bg-gold/20 text-gold-dark"
+        />
+        <StatCard
+          label="طلبات معلقة"
+          value={overview?.pendingOrders || 0}
+          icon={Clock}
+          color="bg-yellow-100 text-yellow-700"
+        />
       </div>
 
       {/* Revenue Chart + Order Status */}
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
         <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5 lg:col-span-2">
           <h3 className="mb-3 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
             الإيرادات (آخر 14 يوم)
@@ -302,14 +251,14 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Best Sellers + Low Stock */}
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
         {/* Best Sellers */}
         <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
           <h3 className="mb-2 flex items-center gap-2 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
             <Package className="h-4 w-4 text-gold sm:h-5 sm:w-5" strokeWidth={1.5} />
             الأكثر مبيعاً
           </h3>
-          <div className="space-y-2 sm:space-y-3">
+          <div className="space-y-1.5 sm:space-y-3">
             {bestSellers.map((p, i) => (
               <div
                 key={p.productId}
@@ -347,7 +296,7 @@ export default function AdminDashboardPage() {
             <AlertTriangle className="h-4 w-4 text-error sm:h-5 sm:w-5" strokeWidth={1.5} />
             مخزون منخفض
           </h3>
-          <div className="space-y-2 sm:space-y-3">
+          <div className="space-y-1.5 sm:space-y-3">
             {lowStock.map((p) => (
               <div
                 key={p.id}
@@ -365,7 +314,7 @@ export default function AdminDashboardPage() {
                     {p.title}
                   </p>
                 </div>
-                <span className="shrink-0 rounded-full bg-error/15 px-2 py-0.5 font-cairo text-[10px] font-bold text-error sm:px-2.5 sm:text-xs">
+                <span className="bg-error/15 shrink-0 rounded-full px-2 py-0.5 font-cairo text-[10px] font-bold text-error sm:px-2.5 sm:text-xs">
                   {p.stockQuantity} متبقي
                 </span>
               </div>

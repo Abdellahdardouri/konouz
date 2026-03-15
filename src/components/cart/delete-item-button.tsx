@@ -16,10 +16,10 @@ function SubmitButton() {
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
         if (pending) e.preventDefault();
       }}
-      aria-label="Remove cart item"
+      aria-label="حذف من السلة"
       aria-disabled={pending}
       className={clsx(
-        'ease flex h-[17px] w-[17px] items-center justify-center rounded-full border border-darkPurple bg-lightPurple transition-all duration-200 will-change-transform hover:scale-110 hover:bg-purple',
+        'ease flex h-[17px] w-[17px] items-center justify-center rounded-full border border-darkPurple bg-lightPurple transition-all duration-200 will-change-transform hover:bg-purple hover:scale-110',
         {
           'cursor-not-allowed px-0': pending
         }

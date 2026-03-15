@@ -1,22 +1,42 @@
 [
   {
-    "title": "المطبخ",
-    "image": "https://images.pexels.com/photos/4397897/pexels-photo-4397897.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/search/kitchen"
+    "title": "تنظيم المطبخ",
+    "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    "url": "/search/tanzim-al-matbakh"
   },
   {
-    "title": "تنظيم المنزل",
-    "image": "https://images.pexels.com/photos/4990270/pexels-photo-4990270.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/search/organization"
+    "title": "تنظيم الحمام",
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=800&q=80",
+    "url": "/search/tanzim-al-hammam"
   },
   {
-    "title": "الأجهزة الصغيرة",
-    "image": "https://images.pexels.com/photos/5718069/pexels-photo-5718069.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/search/appliances"
+    "title": "تخزين الطعام",
+    "image": "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=800&q=80",
+    "url": "/search/takhzin-at-taam"
   },
   {
-    "title": "الحمام والتنظيف",
-    "image": "https://images.pexels.com/photos/6197122/pexels-photo-6197122.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/search/bathroom"
+    "title": "أدوات منزلية",
+    "image": "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&q=80",
+    "url": "/search/adawat-manziliyya"
+  },
+  {
+    "title": "تنظيم الغسيل",
+    "image": "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=800&q=80",
+    "url": "/search/tanzim-al-ghasil"
+  },
+  {
+    "title": "تجفيف الأطباق",
+    "image": "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=80",
+    "url": "/search/tajfif-al-atbaq"
+  },
+  {
+    "title": "سلال التخزين",
+    "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80",
+    "url": "/search/silal-at-takhzin"
+  },
+  {
+    "title": "أدوات التنظيف",
+    "image": "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=800&q=80",
+    "url": "/search/adawat-at-tanzif"
   }
 ]

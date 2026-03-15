@@ -15,13 +15,13 @@ function SubmitButton({
   selectedVariantId: string | undefined;
 }) {
   const { pending } = useFormStatus();
-  const buttonClasses = 'text-[22px] font-cairo';
-  // 'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
-  const disabledClasses = 'btn-cart-disabled cursor-not-allowed opacity-60 hover:opacity-60';
 
   if (!availableForSale) {
     return (
-      <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button
+        aria-disabled
+        className="w-full cursor-not-allowed rounded-lg bg-stone px-6 py-4 font-cairo text-[18px] font-semibold text-charcoal opacity-70"
+      >
         غير متوفر
       </button>
     );
@@ -29,7 +29,10 @@ function SubmitButton({
 
   if (!selectedVariantId) {
     return (
-      <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button
+        aria-disabled
+        className="w-full cursor-not-allowed rounded-lg bg-stone px-6 py-4 font-cairo text-[18px] font-semibold text-warm-gray opacity-60"
+      >
         اختر خياراً
       </button>
     );
@@ -40,16 +43,16 @@ function SubmitButton({
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
         if (pending) e.preventDefault();
       }}
-      aria-label="Add to cart"
+      aria-label="أضف إلى السلة"
       aria-disabled={pending}
-      className={clsx(buttonClasses, 'btn-cart', {
-        'hover:opacity-90': true,
-        disabledClasses: pending
-      })}
+      className={clsx(
+        'w-full rounded-lg bg-espresso px-6 py-4 font-cairo text-[18px] font-semibold text-white transition-all duration-300',
+        'hover:bg-gold hover:text-espresso hover:shadow-warm-md hover:scale-[1.02] active:scale-[0.98]',
+        {
+          'cursor-not-allowed opacity-60': pending
+        }
+      )}
     >
-      <div className="absolute left-0 ml-4">
-        {/* {pending ? <LoadingDots className="mb-3 bg-white" /> : <PlusIcon className="h-5" />} */}
-      </div>
       {pending && (
         <>
           <Loading

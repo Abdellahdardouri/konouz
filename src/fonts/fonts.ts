@@ -1,14 +1,10 @@
-import { Lora, Quicksand, Cairo } from 'next/font/google';
+import { IBM_Plex_Sans_Arabic } from 'next/font/google';
 
-export const lora = Lora({
-  subsets: ['latin'],
-  variable: '--lora'
-});
-
-export const quicksand = Quicksand({ subsets: ['latin'], variable: '--quicksand' });
-
-export const cairo = Cairo({
+export const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   subsets: ['arabic', 'latin'],
   variable: '--cairo',
-  weight: ['300', '400', '500', '600', '700', '800', '900']
+  weight: ['400', '500', '600', '700']
 });
+
+// Backward-compatible alias — components still import `cairo`
+export const cairo = ibmPlexSansArabic;

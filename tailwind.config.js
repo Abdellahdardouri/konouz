@@ -9,19 +9,37 @@ module.exports = {
         xs: '480px'
       },
       colors: {
-        veryDarkPurple: '#2e2e38',
-        darkPurple: '#5c5c70',
-        purple: '#9d9cc9',
-        lightPurple: '#dedeed',
-        veryLightPurple: '#eeeefe'
+        // ── Backward-compatible names (old purple → new warm palette) ──
+        veryDarkPurple: '#1E1C19',
+        darkPurple: '#3D3A35',
+        purple: '#C8A96E',
+        lightPurple: '#EDE8DE',
+        veryLightPurple: '#F5F2EB',
+
+        // ── New semantic aliases ──
+        espresso: '#1E1C19',
+        charcoal: '#3D3A35',
+        gold: '#C8A96E',
+        'gold-light': '#D4BA85',
+        'gold-dark': '#A8894E',
+        'gold-muted': '#C8A96E1A',
+        sand: '#EDE8DE',
+        cream: '#F5F2EB',
+        'white-warm': '#FAFAF7',
+        stone: '#D4CFC4',
+        'warm-gray': '#8A857A',
+        success: '#6B8F71',
+        error: '#C4635A'
       },
       fontFamily: {
-        sans: ['var(--cairo)', 'var(--font-geist-sans)', 'sans-serif'],
-        cairo: ['var(--cairo)', 'sans-serif'],
-        // quicksand: ['Quicksand', 'sans-serif'],
-        // lora: ['Lora', 'serif']
-        lora: ['var(--lora)'],
-        quicksand: ['var(--quicksand)']
+        sans: ['var(--cairo)', 'Instrument Sans', 'sans-serif'],
+        cairo: ['var(--cairo)', 'sans-serif']
+      },
+      boxShadow: {
+        warm: '0 2px 8px rgba(30, 28, 25, 0.08)',
+        'warm-md': '0 4px 16px rgba(30, 28, 25, 0.10)',
+        'warm-lg': '0 8px 32px rgba(30, 28, 25, 0.12)',
+        'warm-xl': '0 16px 48px rgba(30, 28, 25, 0.16)'
       },
       keyframes: {
         fadeIn: {
@@ -44,6 +62,10 @@ module.exports = {
         fadeOut: {
           '0%': { opacity: 1 },
           '100% ': { opacity: 0 }
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' }
         }
       },
       animation: {
@@ -52,13 +74,12 @@ module.exports = {
         blink: 'blink 1.4s both infinite',
         fadeUp: 'fadeUp 0.5s ease-out forwards',
         fadeUpDelay: '0.5s ease-out 0.25s forwards fadeUp',
-        fadeOut: 'fadeOut 0.5s ease-out forwards'
+        fadeOut: 'fadeOut 0.5s ease-out forwards',
+        shimmer: 'shimmer 2s ease-in-out infinite'
       }
     }
   },
-  future: {
-    hoverOnlyWhenSupported: true
-  },
+  future: {},
   plugins: [
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),

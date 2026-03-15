@@ -26,7 +26,6 @@ const ProductDescription = ({ product }: { product: Product }) => {
         id: variant.id,
         availableForSale: variant.availableForSale,
         price: variant.price.amount,
-        // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
         ...variant.selectedOptions.reduce(
           (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
           {}
@@ -52,25 +51,39 @@ const ProductDescription = ({ product }: { product: Product }) => {
 
   const price = currentCombinationPrice || product.priceRange.minVariantPrice.amount;
   return (
-    <div className="sticky top-1 flex flex-col items-start justify-start gap-4 px-6 font-cairo text-darkPurple">
-      <h2 className="hidden text-[clamp(28px,18px_+_2vw,40px)] font-bold leading-[1] md:block">
+    <div className="sticky top-1 flex flex-col items-start justify-start gap-5 px-6 font-cairo text-darkPurple">
+      <h2 className="hidden text-[clamp(26px,18px_+_2vw,36px)] font-bold leading-tight text-veryDarkPurple md:block">
         {product.title}
       </h2>
-      <p className="text-[32px]">{Number(price).toFixed(0)} د.م.</p>
-      <div className="h-[1px] w-full bg-purple"></div>
+
+      {/* Price */}
+      <p className="text-[28px] font-semibold text-purple">{Number(price).toFixed(0)} د.م.</p>
+
+      {/* Divider */}
+      <div className="h-px w-full bg-stone/40" />
+
       <VariantSelector options={product.options} combinations={combinations} />
+
+      {/* Description */}
       <div>
-        <p className="mb-2 text-[26px]">الوصف</p>
+        <div className="mb-3 flex items-center gap-3">
+          <div className="h-5 w-[3px] rounded-full bg-purple" />
+          <p className="text-[22px] font-semibold text-veryDarkPurple">الوصف</p>
+        </div>
         <div
           dangerouslySetInnerHTML={{ __html: product.descriptionHtml as string }}
-          className="font-cairo text-[18px] text-darkPurple"
+          className="font-cairo text-[16px] leading-relaxed text-darkPurple/80"
         />
       </div>
-      <div className="my-2 h-[1px] w-full bg-purple"></div>
-      <div className="w-full">
+
+      {/* Divider */}
+      <div className="h-px w-full bg-stone/40" />
+
+      {/* Add to cart area */}
+      <div className="w-full space-y-3">
         <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
-        <p className="mt-2 text-center font-cairo text-sm text-darkPurple/70">
-          ✓ توصيل مجاني في سيدي قاسم خلال 24 ساعة | ✓ الدفع عند الاستلام
+        <p className="text-center font-cairo text-[13px] text-warm-gray">
+          &#10003; توصيل مجاني خلال 24 ساعة | &#10003; الدفع عند الاستلام
         </p>
       </div>
     </div>

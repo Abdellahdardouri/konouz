@@ -1,18 +1,39 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Lora&family=Quicksand:wght@400;500;600;700&display=swap'); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── RTL & Arabic base styles ── */
+/* ── Design tokens ── */
 @layer base {
+  :root {
+    --gold: #c8a96e;
+    --gold-light: #d4ba85;
+    --gold-dark: #a8894e;
+    --gold-muted: #c8a96e1a;
+    --white: #fafaf7;
+    --cream: #f5f2eb;
+    --sand: #ede8de;
+    --stone: #d4cfc4;
+    --warm-gray: #8a857a;
+    --charcoal: #3d3a35;
+    --espresso: #1e1c19;
+    --success: #6b8f71;
+    --error: #c4635a;
+  }
+
+  /* ── RTL & Arabic base styles ── */
   html[dir='rtl'] {
     text-align: right;
   }
 
   body {
+    background-color: var(--white);
     font-feature-settings:
       'liga' 1,
       'calt' 1;
+    /* Subtle grain texture via CSS noise pattern */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
   }
 
   /* Arabic ligature support */
@@ -22,34 +43,43 @@
       'calt' 1,
       'kern' 1;
     word-spacing: 0.05em;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 }
 
+/* ── Button components ── */
 .btn {
-  @apply relative rounded-[8px] border border-transparent bg-lightPurple px-[32px] py-[16px] font-bold text-darkPurple shadow-md transition-all duration-300 after:absolute after:left-[20px] after:top-[calc(50%_+_2px)] after:font-[swiper-icons] after:text-[20px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['prev'] after:-translate-y-1/2 hover:border-lightPurple hover:bg-purple hover:pl-[48px] hover:pr-[16px] hover:text-white hover:after:opacity-100;
+  @apply relative rounded-[8px] border border-transparent bg-sand px-[32px] py-[16px] font-bold text-charcoal shadow-warm transition-all duration-300 after:absolute after:left-[20px] after:top-[calc(50%_+_2px)] after:font-[swiper-icons] after:text-[20px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['prev'] after:-translate-y-1/2 hover:border-gold hover:bg-gold hover:pl-[48px] hover:pr-[16px] hover:text-espresso hover:after:opacity-100;
 }
 
 .btn-dark {
-  @apply relative rounded-[8px] border border-transparent bg-purple px-[32px] py-[16px] font-bold text-white shadow-md transition-all duration-300 after:absolute after:left-[20px] after:top-1/2 after:font-[swiper-icons] after:text-[18px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['prev'] after:-translate-y-1/2 hover:border-white hover:bg-darkPurple hover:pl-[48px] hover:pr-[16px] hover:after:opacity-100;
+  @apply relative rounded-[8px] border border-transparent bg-espresso px-[32px] py-[16px] font-bold text-white-warm shadow-warm transition-all duration-300 after:absolute after:left-[20px] after:top-1/2 after:font-[swiper-icons] after:text-[18px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['prev'] after:-translate-y-1/2 hover:border-gold hover:bg-charcoal hover:pl-[48px] hover:pr-[16px] hover:after:opacity-100;
 }
 
 .btn-very-dark {
-  @apply relative rounded-[8px] border border-transparent bg-darkPurple px-[32px] py-[16px] font-bold text-white shadow-md transition-all duration-300 after:absolute after:left-[20px] after:top-1/2 after:font-[swiper-icons] after:text-[18px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['prev'] after:-translate-y-1/2 hover:border-white hover:bg-purple hover:pl-[48px] hover:pr-[16px] hover:after:opacity-100;
+  @apply relative rounded-[8px] border border-transparent bg-charcoal px-[32px] py-[16px] font-bold text-white-warm shadow-warm transition-all duration-300 after:absolute after:left-[20px] after:top-1/2 after:font-[swiper-icons] after:text-[18px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['prev'] after:-translate-y-1/2 hover:border-gold hover:bg-gold hover:pl-[48px] hover:pr-[16px] hover:after:opacity-100;
 }
 
 .btn-cart {
-  @apply relative w-full rounded-[8px] border border-transparent bg-purple px-[32px] py-[16px] font-bold text-white shadow-md transition-all duration-300 after:absolute after:right-[20px] after:top-1/2 after:text-[32px] after:text-white after:opacity-0 after:transition-all after:duration-300 after:content-['+'] after:-translate-y-1/2 hover:border-white hover:bg-darkPurple hover:pl-[16px] hover:pr-[48px] hover:text-white hover:after:opacity-100;
+  @apply relative w-full rounded-[8px] border border-transparent bg-espresso px-[32px] py-[16px] font-bold text-white-warm shadow-warm transition-all duration-300 after:absolute after:right-[20px] after:top-1/2 after:text-[32px] after:text-espresso after:opacity-0 after:transition-all after:duration-300 after:content-['+'] after:-translate-y-1/2 hover:border-gold hover:bg-gold hover:pl-[16px] hover:pr-[48px] hover:text-espresso hover:after:opacity-100;
 }
 
 .btn-cart-disabled {
-  @apply relative w-full rounded-[8px] border border-transparent bg-purple px-[32px] py-[16px] font-bold text-white shadow-md;
+  @apply relative w-full rounded-[8px] border border-transparent bg-stone px-[32px] py-[16px] font-bold text-warm-gray shadow-warm;
 }
 
+/* ── Link underline effects ── */
 .hover-line {
-  @apply relative transition-all duration-300 before:absolute before:bottom-0 before:left-1/2 before:h-[1px] before:w-0 before:bg-purple before:opacity-0 before:transition-all before:duration-300 before:will-change-transform before:-translate-x-1/2 hover:text-purple hover:before:w-full hover:before:opacity-100;
+  @apply relative transition-all duration-300 before:absolute before:bottom-0 before:left-1/2 before:h-[1px] before:w-0 before:bg-gold before:opacity-0 before:transition-all before:duration-300 before:will-change-transform before:-translate-x-1/2 hover:text-gold hover:before:w-full hover:before:opacity-100;
 }
 
 .header-link {
-  @apply relative h-full before:absolute before:bottom-0 before:left-1/2 before:hidden before:h-[4px] before:w-0 before:bg-purple before:opacity-0 before:transition-all before:duration-300 before:will-change-transform before:-translate-x-1/2 hover:text-purple hover:before:w-full hover:before:opacity-100 md:before:block;
+  @apply relative h-full before:absolute before:bottom-0 before:left-1/2 before:hidden before:h-[2px] before:w-0 before:bg-gold before:opacity-0 before:transition-all before:duration-300 before:will-change-transform before:-translate-x-1/2 hover:text-gold hover:before:w-full hover:before:opacity-100 md:before:block;
+}
+
+/* ── Warm shadow utilities ── */
+@layer utilities {
+  .shadow-warm-inner {
+    box-shadow: inset 0 2px 4px rgba(30, 28, 25, 0.06);
+  }
 }

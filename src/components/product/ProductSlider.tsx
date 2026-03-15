@@ -18,7 +18,7 @@ const ProductSlider = ({ product }: { product: Product }) => {
     <div className="sticky top-4">
       {/* Mobile title */}
       <div className="mb-4 md:hidden">
-        <h2 className="font-cairo text-[clamp(22px,5vw,32px)] font-bold text-darkPurple">
+        <h2 className="font-cairo text-[clamp(22px,5vw,32px)] font-bold text-veryDarkPurple">
           {product.title}
         </h2>
       </div>
@@ -35,10 +35,8 @@ const ProductSlider = ({ product }: { product: Product }) => {
                 setActiveIndex(i);
               }}
               className={clsx(
-                'relative h-[72px] w-[58px] flex-shrink-0 overflow-hidden rounded-[8px] border-2 transition-all duration-200',
-                activeIndex === i
-                  ? 'border-veryDarkPurple'
-                  : 'border-transparent hover:border-purple'
+                'relative h-[72px] w-[58px] flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200',
+                activeIndex === i ? 'border-purple' : 'border-transparent hover:border-purple/40'
               )}
             >
               <Image
@@ -55,7 +53,7 @@ const ProductSlider = ({ product }: { product: Product }) => {
 
         {/* Main image swiper */}
         <div
-          className="relative flex-1 overflow-hidden rounded-[16px]"
+          className="relative flex-1 overflow-hidden rounded-2xl bg-cream"
           style={{ aspectRatio: '4/5' }}
         >
           <Swiper
@@ -68,7 +66,7 @@ const ProductSlider = ({ product }: { product: Product }) => {
               setIsStart(s.isBeginning);
               setIsEnd(s.isEnd);
             }}
-            className="h-full w-full rounded-[16px]"
+            className="h-full w-full rounded-2xl"
           >
             {product.images.map((image, i) => (
               <SwiperSlide key={i} className="relative h-full w-full">
@@ -88,7 +86,7 @@ const ProductSlider = ({ product }: { product: Product }) => {
           {/* Prev arrow */}
           {!isStart && (
             <button
-              className="absolute left-2 top-1/2 z-10 rounded-full bg-white/80 p-2 shadow-md transition -translate-y-1/2 hover:bg-white hover:scale-110"
+              className="absolute left-2 top-1/2 z-10 rounded-full bg-white/80 p-2 text-charcoal shadow-warm transition-all -translate-y-1/2 hover:bg-white hover:text-purple hover:scale-110"
               onClick={() => mainSwiper.current?.slidePrev()}
               aria-label="Previous"
             >
@@ -109,7 +107,7 @@ const ProductSlider = ({ product }: { product: Product }) => {
           {/* Next arrow */}
           {!isEnd && (
             <button
-              className="absolute right-2 top-1/2 z-10 rounded-full bg-white/80 p-2 shadow-md transition -translate-y-1/2 hover:bg-white hover:scale-110"
+              className="absolute right-2 top-1/2 z-10 rounded-full bg-white/80 p-2 text-charcoal shadow-warm transition-all -translate-y-1/2 hover:bg-white hover:text-purple hover:scale-110"
               onClick={() => mainSwiper.current?.slideNext()}
               aria-label="Next"
             >

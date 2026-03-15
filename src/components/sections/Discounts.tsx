@@ -9,13 +9,13 @@ const Discounts = () => {
       <Marquee autoFill={true} direction="right">
         <div className="ml-[32px] flex items-center justify-center gap-[32px]">
           <p>توصيل مجاني في سيدي قاسم خلال 24 ساعة</p>
-          <div className="aspect-square w-[8px] rounded-full bg-white" />
+          <div className="aspect-square w-[8px] rounded-full bg-purple" />
           <p>الدفع عند الاستلام</p>
-          <div className="aspect-square w-[8px] rounded-full bg-white" />
+          <div className="aspect-square w-[8px] rounded-full bg-purple" />
           <p>منتجات مختارة بعناية</p>
-          <div className="aspect-square w-[8px] rounded-full bg-white" />
+          <div className="aspect-square w-[8px] rounded-full bg-purple" />
           <p>كنوز — متجرك للبيت</p>
-          <div className="aspect-square w-[8px] rounded-full bg-white" />
+          <div className="aspect-square w-[8px] rounded-full bg-purple" />
         </div>
       </Marquee>
     </div>

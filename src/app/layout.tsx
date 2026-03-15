@@ -1,29 +1,8 @@
-// next
-import dynamic from 'next/dynamic';
-
-// react
-import { ReactNode, Suspense } from 'react';
-
-// loading component
-import Loading from '@/components/common/Loading';
-const loading = () => <Loading />;
-
-// components
-import Header from '@/components/sections/Header';
-const Footer = dynamic(() => import('@/components/sections/Footer'), {
-  loading
-});
-
-// utils
+import { ReactNode } from 'react';
 import { ensureStartsWith } from '@/lib/utils';
-
-// styles
 import '@/styles/globals.css';
+import { cairo } from '@/fonts/fonts';
 
-// fonts
-import { lora, quicksand, cairo } from '@/fonts/fonts';
-
-// metadata
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://konouz.ma' : 'http://localhost:3000';
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined;
@@ -51,20 +30,10 @@ export const metadata = {
   icons: { icon: '/favicon.png' }
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="ar"
-      dir="rtl"
-      className={`${quicksand.variable} ${lora.variable} ${cairo.variable} ${cairo.className}`}
-    >
-      <body className="bg-white text-veryDarkPurple">
-        <Header />
-        <Suspense>
-          <main>{children}</main>
-        </Suspense>
-        <Footer />
-      </body>
+    <html lang="ar" dir="rtl" className={`${cairo.variable} ${cairo.className}`}>
+      <body className="bg-white-warm text-veryDarkPurple">{children}</body>
     </html>
   );
 }

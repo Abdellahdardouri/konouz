@@ -1,27 +1,22 @@
 [
   {
     "title": "X",
-    "url": "",
+    "url": "https://x.com/konouzsh",
     "image": "/images/footer/social-media/x.png"
   },
   {
-    "title": "Facebook",
-    "url": "",
-    "image": "/images/footer/social-media/facebook.png"
-  },
-  {
     "title": "Instagram",
-    "url": "",
+    "url": "https://instagram.com/konouz.it",
     "image": "/images/footer/social-media/instagram.png"
   },
   {
     "title": "Youtube",
-    "url": "",
+    "url": "https://youtube.com/@konouz-s3t",
     "image": "/images/footer/social-media/youtube.png"
   },
   {
     "title": "TikTok",
-    "url": "",
+    "url": "https://tiktok.com/@konouzsh",
     "image": "/images/footer/social-media/tiktok.png"
   }
 ]

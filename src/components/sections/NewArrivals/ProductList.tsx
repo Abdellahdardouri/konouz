@@ -11,7 +11,7 @@ import { Product } from '@/lib/shopify/types';
 const ProductList = ({ products }: { products: Product[] }) => {
   const isLg = useMediaQuery({ query: '(min-width: 1024px)' });
   return (
-    <div className="grid w-full grid-cols-2 items-start justify-center gap-x-[4px] gap-y-[16px] xs:gap-x-[16px] md:gap-[32px] lg:grid-cols-3">
+    <div className="grid w-full grid-cols-2 items-start justify-center gap-3 px-4 sm:gap-5 sm:px-0 lg:grid-cols-3">
       {products.map((product, i) => (
         <ProductCard key={i} product={product} delay={(i % (isLg ? 3 : 2)) * 0.25} />
       ))}

@@ -87,9 +87,10 @@ const Slider = ({ collection }: { collection: Collection }) => {
         }}
       >
         {products.map((product, i) => (
-          <SwiperSlide key={product.handle} className="!w-[180px] sm:!w-[280px]">
+          <SwiperSlide key={product.handle} className="!w-[200px] sm:!w-[300px]">
             <ProductCard
               product={product}
+              className="w-[200px] sm:w-[300px]"
               delay={i > (isSm ? 2 : 1) ? 0 : i * 0.5}
               duration={i > (isSm ? 2 : 1) ? 0 : undefined}
               rank={i + 1}

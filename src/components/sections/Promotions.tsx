@@ -1,51 +1,74 @@
 'use client';
 
-// next
 import Image from 'next/image';
-
-// react-scroll-parallax
-import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
+import Link from 'next/link';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 
 const Promotions = () => {
   return (
-    <ParallaxProvider>
-      <div className="relative h-[570px] overflow-hidden sm:h-screen">
+    <LazyMotion features={domAnimation}>
+      <section className="w-full overflow-hidden">
         <h2 className="sr-only">عروض كنوز</h2>
-        <Parallax speed={-50} className="relative hidden h-full w-full sm:block">
-          <Image
-            src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg"
-            alt="منتجات منزلية مختارة"
-            fill
-            sizes="(min-width: 768px) 100vw, 867px"
-            className="object-cover"
-            unoptimized
-          />
-        </Parallax>
-        <div className="relative block h-full w-full sm:hidden">
-          <Image
-            src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg"
-            alt="منتجات منزلية مختارة"
-            fill
-            sizes="(min-width: 768px) 100vw, 867px"
-            className="object-cover"
-            unoptimized
-          />
+        <div className="flex flex-col md:min-h-[600px] md:flex-row">
+          {/* Image side — 60% on desktop, full width stacked on mobile */}
+          <m.div
+            className="relative h-[400px] w-full md:h-auto md:w-[60%]"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+            <Image
+              src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg"
+              alt="منتجات منزلية مختارة"
+              fill
+              sizes="(min-width: 768px) 60vw, 100vw"
+              className="object-cover"
+              unoptimized
+            />
+          </m.div>
+
+          {/* Text side — 40% on desktop */}
+          <div className="flex w-full items-center justify-center bg-lightPurple px-8 py-16 md:w-[40%] md:px-12 md:py-24">
+            <div className="flex max-w-[440px] flex-col gap-6">
+              <m.h3
+                className="font-cairo text-[clamp(28px,3vw,44px)] font-semibold leading-tight text-veryDarkPurple"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                اختيارات عملية
+                <br />
+                للبيت
+              </m.h3>
+              <m.p
+                className="font-cairo text-[clamp(16px,1.5vw,20px)] leading-relaxed text-darkPurple"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                منتجات تساعدك في تنظيم المنزل وتوفر راحة يومية أكثر
+              </m.p>
+              <m.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  href="/search"
+                  className="inline-block rounded-[4px] bg-purple px-8 py-4 font-cairo text-[clamp(16px,1.5vw,20px)] font-semibold text-veryDarkPurple transition-all duration-300 hover:shadow-warm-lg hover:brightness-110 hover:scale-105 active:scale-[0.98]"
+                >
+                  تصفح المجموعة
+                </Link>
+              </m.div>
+            </div>
+          </div>
         </div>
-        <div className="absolute left-[5%] top-[50%] flex w-[65%] max-w-[610px] flex-col items-center justify-center gap-[16px] rounded-[16px] bg-white/30 p-[16px] text-center backdrop-blur-sm -translate-y-1/2 md:gap-[32px] md:p-[32px]">
-          <h3 className="font-cairo text-[clamp(24px,14px_+_2vw,60px)] font-bold leading-[1.5] text-white drop-shadow-md">
-            اختيارات عملية
-            <br />
-            للبيت
-          </h3>
-          <p className="text-[clamp(18px,10px_+_2vw,32px)] font-semibold text-white drop-shadow-md">
-            منتجات تساعدك في تنظيم المنزل وتوفر راحة يومية أكثر
-          </p>
-          <a className="btn text-[clamp(16px,8px_+_2vw,22px)]" href="/search">
-            تصفح المجموعة
-          </a>
-        </div>
-      </div>
-    </ParallaxProvider>
+      </section>
+    </LazyMotion>
   );
 };
 

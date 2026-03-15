@@ -16,13 +16,16 @@ const Discounts = dynamic(() => import('@/components/sections/Discounts'), {
 const BestSellers = dynamic(() => import('@/components/sections/BestSellers'), {
   loading
 });
+const BrandStatement = dynamic(() => import('@/components/sections/BrandStatement'), {
+  loading
+});
 const Promotions = dynamic(() => import('@/components/sections/Promotions'), {
   loading
 });
-const TrustBlock = dynamic(() => import('@/components/sections/TrustBlock'), {
+const NewArrivals = dynamic(() => import('@/components/sections/NewArrivals/NewArrivals'), {
   loading
 });
-const NewArrivals = dynamic(() => import('@/components/sections/NewArrivals/NewArrivals'), {
+const TrustBlock = dynamic(() => import('@/components/sections/TrustBlock'), {
   loading
 });
 const AboutUs = dynamic(() => import('@/components/sections/AboutUs'), {
@@ -66,9 +69,10 @@ export default async function HomePage() {
       <CategoryHighlights />
       <Discounts />
       <BestSellers />
+      <BrandStatement />
       <Promotions />
-      <TrustBlock />
       <NewArrivals />
+      <TrustBlock />
       <AboutUs />
     </>
   );

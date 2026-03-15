@@ -1,43 +1,66 @@
-// next
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 
-// data
 import categories from '@/data/clothing-images.json';
 
 const CategoryHighlights = () => {
   return (
-    <section className="flex w-full flex-col items-center justify-center gap-6 px-4 py-10 md:py-16">
-      <h2 className="font-cairo text-[clamp(24px,18px_+_2vw,36px)] font-semibold text-veryDarkPurple">
-        تسوق حسب الفئة
-      </h2>
-      <div className="grid w-full max-w-[95%] grid-cols-2 gap-4 md:max-w-[904px] md:grid-cols-4 md:gap-6">
-        {categories.map((category, i) => (
-          <Link
-            key={i}
-            href={category.url}
-            className="group relative aspect-square overflow-hidden rounded-[16px] shadow-md transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+    <LazyMotion features={domAnimation}>
+      <section className="w-full px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-[95%] md:max-w-[1100px]">
+          {/* Section heading with gold side-line */}
+          <m.h2
+            className="mb-8 flex items-center justify-end gap-3 font-cairo text-[clamp(24px,18px_+_2vw,36px)] font-semibold text-veryDarkPurple md:mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
           >
-            <Image
-              src={category.image}
-              alt={category.title}
-              fill
-              sizes="(min-width: 768px) 25vw, 50vw"
-              className="object-cover transition-all duration-500 group-hover:scale-110"
-              unoptimized
-            />
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            {/* Title */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 text-center md:p-4">
-              <span className="font-cairo text-[clamp(14px,2vw,18px)] font-bold text-white drop-shadow-md">
-                {category.title}
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+            تسوق حسب الفئة
+            <span className="inline-block h-[2px] w-[40px] bg-purple" />
+          </m.h2>
+
+          {/* Horizontal scroll on mobile, 4-col x 2-row grid on desktop */}
+          <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-4 md:grid-rows-2 md:gap-5 md:overflow-visible md:pb-0">
+            {categories.map((category, i) => (
+              <m.div
+                key={i}
+                className="w-[240px] flex-shrink-0 md:w-auto"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  href={category.url}
+                  className={`group relative block overflow-hidden rounded-xl ring-0 ring-gold/0 transition-all duration-300 hover:ring-2 hover:ring-gold/30 ${
+                    i < 4 ? 'aspect-[3/4]' : 'aspect-[4/5]'
+                  }`}
+                >
+                  <Image
+                    src={category.image}
+                    alt={category.title}
+                    fill
+                    sizes="(min-width: 768px) 25vw, 240px"
+                    className="duration-600 object-cover transition-all group-hover:scale-105"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                    <span className="font-cairo text-[clamp(16px,2.2vw,21px)] font-semibold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+                      {category.title}
+                    </span>
+                  </div>
+                </Link>
+              </m.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </LazyMotion>
   );
 };
 

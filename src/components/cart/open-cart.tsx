@@ -1,15 +1,11 @@
-// next
-import Image from 'next/image';
+import { ShoppingCart } from 'lucide-react';
 
 export default function OpenCart({ quantity }: { quantity?: number }) {
   return (
-    <div className="relative">
-      <Image src="/images/cart.png" width="36" height="36" alt="cart" />
+    <div className="relative text-white transition-colors duration-300 hover:text-gold">
+      <ShoppingCart size={22} strokeWidth={1.5} />
       {quantity ? (
-        <div
-          className="absolute right-0 top-0 h-4 w-4 rounded-full bg-purple text-[11px] font-medium text-white"
-          role="figure"
-        >
+        <div className="absolute -left-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-gold text-[10px] font-medium leading-none text-espresso">
           {quantity}
         </div>
       ) : null}

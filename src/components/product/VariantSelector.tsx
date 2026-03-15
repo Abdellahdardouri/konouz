@@ -73,14 +73,14 @@ export function VariantSelector({
               disabled={!isAvailableForSale}
               onClick={() => router.replace(optionUrl, { scroll: false })}
               // onClick={() => router.push(optionUrl, { scroll: false })}
-              title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
+              title={`${option.name} ${value}${!isAvailableForSale ? ' (غير متوفر)' : ''}`}
               className={clsx(
-                'rounded-[16px] border-2 bg-lightPurple px-[16px] py-[8px] font-quicksand text-[18px] font-medium transition-all duration-300 will-change-transform',
+                'font-quicksand rounded-[16px] border-2 bg-lightPurple px-[16px] py-[8px] text-[18px] font-medium transition-all duration-300 will-change-transform',
                 {
                   'cursor-default border-darkPurple': isActive,
                   'border-transparent hover:bg-purple hover:text-white ':
                     !isActive && isAvailableForSale,
-                  'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
+                  'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:bg-neutral-300 before:transition-transform before:-rotate-45 dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
                     !isAvailableForSale
                 }
               )}

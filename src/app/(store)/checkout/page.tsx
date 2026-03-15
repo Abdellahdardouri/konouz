@@ -35,7 +35,14 @@ type CartData = {
 
 type PaymentMethod = 'CASH_ON_DELIVERY' | 'STRIPE';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+type PromoResult = {
+  code: string;
+  type: 'PERCENTAGE' | 'FIXED_AMOUNT';
+  value: number;
+  discount: number;
+} | null;
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://konouz-backend.onrender.com/api/v1';
 
 function getCookie(name: string): string | undefined {
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -85,6 +92,46 @@ function CheckoutForm({
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
+  // Promo code state
+  const [promoInput, setPromoInput] = useState('');
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoError, setPromoError] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState<PromoResult>(null);
+
+  const subtotal = Number(cart.cost.totalAmount.amount);
+  const discount = appliedPromo?.discount || 0;
+  const total = Math.max(0, subtotal - discount);
+
+  const handleApplyPromo = async () => {
+    if (!promoInput.trim()) return;
+    setPromoLoading(true);
+    setPromoError('');
+    try {
+      const res = await fetch(`${API_URL}/promo/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: promoInput.trim(), subtotal })
+      });
+      const json = await res.json();
+      if (json.success && json.data) {
+        setAppliedPromo(json.data);
+        setPromoError('');
+      } else {
+        setPromoError(json.error || 'كود الخصم غير صالح');
+        setAppliedPromo(null);
+      }
+    } catch {
+      setPromoError('خطأ في التحقق من الكود');
+    }
+    setPromoLoading(false);
+  };
+
+  const handleRemovePromo = () => {
+    setAppliedPromo(null);
+    setPromoInput('');
+    setPromoError('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -97,7 +144,7 @@ function CheckoutForm({
     setError('');
 
     try {
-      // 1. Create the order
+      // 1. Create the order (with promo code if applied)
       const orderRes = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -108,7 +155,8 @@ function CheckoutForm({
           customerPhone: form.phone,
           customerAddress: form.address,
           customerCity: form.city,
-          notes: form.notes
+          notes: form.notes,
+          promoCode: appliedPromo?.code || undefined
         })
       });
 
@@ -256,16 +304,74 @@ function CheckoutForm({
                   </div>
                 ))}
               </div>
+
+              {/* Promo Code Section */}
+              <div className="mt-5 border-t border-stone/30 pt-5">
+                <p className="mb-2 font-cairo text-sm font-semibold text-veryDarkPurple">
+                  كود الخصم
+                </p>
+                {appliedPromo ? (
+                  <div className="flex items-center justify-between rounded-lg bg-success/10 px-3 py-2">
+                    <div>
+                      <span className="font-cairo text-sm font-bold text-success">
+                        {appliedPromo.code}
+                      </span>
+                      <span className="mr-2 font-cairo text-xs text-success">
+                        {appliedPromo.type === 'PERCENTAGE'
+                          ? `(${appliedPromo.value}%)`
+                          : `(${appliedPromo.value} د.م.)`}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemovePromo}
+                      className="font-cairo text-xs text-error hover:underline"
+                    >
+                      إزالة
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={promoInput}
+                      onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                      placeholder="أدخل كود الخصم"
+                      className="flex-1 rounded-lg border border-stone/40 bg-white px-3 py-2 font-cairo text-sm text-veryDarkPurple outline-none focus:border-purple"
+                      dir="ltr"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyPromo}
+                      disabled={promoLoading || !promoInput.trim()}
+                      className="shrink-0 rounded-lg bg-espresso px-4 py-2 font-cairo text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-espresso disabled:opacity-50"
+                    >
+                      {promoLoading ? '...' : 'تطبيق'}
+                    </button>
+                  </div>
+                )}
+                {promoError && <p className="mt-1.5 font-cairo text-xs text-error">{promoError}</p>}
+              </div>
+
+              {/* Totals */}
               <div className="mt-5 border-t border-stone/30 pt-5">
                 <div className="flex justify-between font-cairo text-sm text-darkPurple">
+                  <span>المجموع الفرعي</span>
+                  <span>{subtotal.toFixed(0)} د.م.</span>
+                </div>
+                {discount > 0 && (
+                  <div className="mt-2 flex justify-between font-cairo text-sm text-success">
+                    <span>الخصم</span>
+                    <span>- {discount.toFixed(0)} د.م.</span>
+                  </div>
+                )}
+                <div className="mt-2 flex justify-between font-cairo text-sm text-darkPurple">
                   <span>التوصيل</span>
                   <span className="font-bold text-success">مجاني</span>
                 </div>
-                <div className="mt-3 flex justify-between font-cairo text-lg font-bold text-veryDarkPurple">
+                <div className="mt-3 flex justify-between border-t border-stone/20 pt-3 font-cairo text-lg font-bold text-veryDarkPurple">
                   <span>المجموع</span>
-                  <span className="text-purple">
-                    {Number(cart.cost.totalAmount.amount).toFixed(0)} د.م.
-                  </span>
+                  <span className="text-purple">{total.toFixed(0)} د.م.</span>
                 </div>
               </div>
             </div>
@@ -472,7 +578,7 @@ function CheckoutForm({
                 ? 'جاري المعالجة...'
                 : paymentMethod === 'CASH_ON_DELIVERY'
                 ? 'تأكيد الطلب — الدفع عند الاستلام'
-                : `الدفع الآن — ${Number(cart.cost.totalAmount.amount).toFixed(0)} د.م.`}
+                : `الدفع الآن — ${total.toFixed(0)} د.م.`}
             </button>
           </form>
         </div>

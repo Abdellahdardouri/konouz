@@ -111,81 +111,135 @@ export default function CustomersPage() {
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-gold/30 border-t-gold" />
         </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-stone/30 bg-white shadow-warm">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-stone/20 bg-cream/50">
-                  <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
-                    الاسم
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
-                    البريد
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
-                    الهاتف
-                  </th>
-                  <th className="px-4 py-3 text-center font-cairo text-sm font-medium text-warm-gray">
-                    الطلبات
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
-                    تاريخ التسجيل
-                  </th>
-                  <th className="px-4 py-3 text-center font-cairo text-sm font-medium text-warm-gray">
-                    عرض
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {customers.map((c) => (
-                  <tr
-                    key={c.id}
-                    className="border-b border-stone/10 transition-colors hover:bg-cream/30"
-                  >
-                    <td className="px-4 py-3">
-                      <span className="font-cairo text-sm font-medium text-espresso">
-                        {c.firstName} {c.lastName}
-                      </span>
+        <div>
+          {/* Mobile: Customer Cards */}
+          <div className="space-y-3 lg:hidden">
+            {customers.map((c) => (
+              <div
+                key={c.id}
+                className="rounded-xl border border-stone/30 bg-white p-4 shadow-warm"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-cairo text-sm font-bold text-espresso">
+                      {c.firstName} {c.lastName}
                       {c.isGuest && (
                         <span className="mr-2 rounded-full bg-warm-gray/10 px-2 py-0.5 font-cairo text-[10px] text-warm-gray">
                           زائر
                         </span>
                       )}
-                    </td>
-                    <td className="px-4 py-3 font-cairo text-sm text-charcoal">{c.email || '—'}</td>
-                    <td className="px-4 py-3 font-cairo text-sm text-charcoal">{c.phone || '—'}</td>
-                    <td className="px-4 py-3 text-center font-cairo text-sm font-medium text-espresso">
-                      {c._count?.orders ?? c.orderCount ?? 0}
-                    </td>
-                    <td className="px-4 py-3 font-cairo text-sm text-warm-gray">
-                      {new Date(c.createdAt).toLocaleDateString('ar-MA')}
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      <button
-                        onClick={() => viewCustomer(c.id)}
-                        className="rounded-lg bg-gold/10 px-3 py-1.5 font-cairo text-xs font-medium text-gold-dark transition-colors hover:bg-gold/20"
-                      >
-                        التفاصيل
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-                {customers.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan={6}
-                      className="px-4 py-8 text-center font-cairo text-sm text-warm-gray"
-                    >
-                      لا يوجد عملاء
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                    </p>
+                    {c.email && (
+                      <p className="mt-0.5 font-cairo text-xs text-charcoal">{c.email}</p>
+                    )}
+                    {c.phone && (
+                      <p className="mt-0.5 font-cairo text-xs text-warm-gray">{c.phone}</p>
+                    )}
+                  </div>
+                  <span className="rounded-full bg-gold/10 px-2.5 py-1 font-cairo text-xs font-medium text-gold-dark">
+                    {c._count?.orders ?? c.orderCount ?? 0} طلب
+                  </span>
+                </div>
+                <div className="border-stone/15 mt-3 flex items-center justify-between border-t pt-3">
+                  <span className="font-cairo text-xs text-warm-gray">
+                    {new Date(c.createdAt).toLocaleDateString('ar-MA')}
+                  </span>
+                  <button
+                    onClick={() => viewCustomer(c.id)}
+                    className="rounded-lg bg-gold/10 px-3 py-1.5 font-cairo text-xs font-medium text-gold-dark hover:bg-gold/20"
+                  >
+                    التفاصيل
+                  </button>
+                </div>
+              </div>
+            ))}
+            {customers.length === 0 && (
+              <p className="py-8 text-center font-cairo text-sm text-warm-gray">لا يوجد عملاء</p>
+            )}
           </div>
 
+          {/* Desktop: Table */}
+          <div className="hidden overflow-hidden rounded-xl border border-stone/30 bg-white shadow-warm lg:block">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-stone/20 bg-cream/50">
+                    <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
+                      الاسم
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
+                      البريد
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
+                      الهاتف
+                    </th>
+                    <th className="px-4 py-3 text-center font-cairo text-sm font-medium text-warm-gray">
+                      الطلبات
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-sm font-medium text-warm-gray">
+                      تاريخ التسجيل
+                    </th>
+                    <th className="px-4 py-3 text-center font-cairo text-sm font-medium text-warm-gray">
+                      عرض
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customers.map((c) => (
+                    <tr
+                      key={c.id}
+                      className="border-b border-stone/10 transition-colors hover:bg-cream/30"
+                    >
+                      <td className="px-4 py-3">
+                        <span className="font-cairo text-sm font-medium text-espresso">
+                          {c.firstName} {c.lastName}
+                        </span>
+                        {c.isGuest && (
+                          <span className="mr-2 rounded-full bg-warm-gray/10 px-2 py-0.5 font-cairo text-[10px] text-warm-gray">
+                            زائر
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 font-cairo text-sm text-charcoal">
+                        {c.email || '—'}
+                      </td>
+                      <td className="px-4 py-3 font-cairo text-sm text-charcoal">
+                        {c.phone || '—'}
+                      </td>
+                      <td className="px-4 py-3 text-center font-cairo text-sm font-medium text-espresso">
+                        {c._count?.orders ?? c.orderCount ?? 0}
+                      </td>
+                      <td className="px-4 py-3 font-cairo text-sm text-warm-gray">
+                        {new Date(c.createdAt).toLocaleDateString('ar-MA')}
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <button
+                          onClick={() => viewCustomer(c.id)}
+                          className="rounded-lg bg-gold/10 px-3 py-1.5 font-cairo text-xs font-medium text-gold-dark transition-colors hover:bg-gold/20"
+                        >
+                          التفاصيل
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {customers.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={6}
+                        className="px-4 py-8 text-center font-cairo text-sm text-warm-gray"
+                      >
+                        لا يوجد عملاء
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pagination (both mobile and desktop) */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 border-t border-stone/20 p-4">
+            <div className="mt-4 flex items-center justify-center gap-2">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}

@@ -198,8 +198,46 @@ export default function AdminOrdersPage() {
         </div>
       ) : (
         <>
-          {/* Orders Table */}
-          <div className="overflow-hidden rounded-xl border border-stone/30 bg-white shadow-warm">
+          {/* Mobile: Order Cards */}
+          <div className="space-y-3 lg:hidden">
+            {orders.map((order) => (
+              <div
+                key={order.id}
+                onClick={() => router.push(`/admin/orders/${order.id}`)}
+                className="cursor-pointer rounded-xl border border-stone/30 bg-white p-4 shadow-warm transition-shadow hover:shadow-warm-md"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-cairo text-sm font-bold text-espresso">
+                      #{order.orderNumber}
+                    </p>
+                    <p className="mt-0.5 font-cairo text-xs text-charcoal">{order.customerName}</p>
+                  </div>
+                  <span
+                    className={`rounded-full px-2.5 py-1 font-cairo text-xs font-medium ${
+                      statusColors[order.status] || 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    {statusLabels[order.status] || order.status}
+                  </span>
+                </div>
+                <div className="border-stone/15 mt-3 flex items-center justify-between border-t pt-3">
+                  <span className="font-cairo text-sm font-bold text-espresso">
+                    {Number(order.totalMAD || 0).toFixed(0)} د.م.
+                  </span>
+                  <span className="font-cairo text-xs text-warm-gray">
+                    {paymentLabels[order.paymentMethod] || order.paymentMethod}
+                  </span>
+                  <span className="font-cairo text-xs text-warm-gray">
+                    {formatDate(order.createdAt)}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Orders Table */}
+          <div className="hidden overflow-hidden rounded-xl border border-stone/30 bg-white shadow-warm lg:block">
             <div className="overflow-x-auto">
               <table className="w-full text-right">
                 <thead>

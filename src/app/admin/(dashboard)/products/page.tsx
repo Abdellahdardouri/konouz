@@ -258,153 +258,218 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      {/* Products Table */}
+      {/* Products List */}
       {!loading && products.length > 0 && (
-        <div className="overflow-hidden rounded-xl border border-stone/30 bg-white shadow-warm">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[700px]">
-              <thead>
-                <tr className="border-b border-stone/20 bg-cream/50">
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    صورة
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    الاسم
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    القسم
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    السعر
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    المخزون
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    الحالة
-                  </th>
-                  <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
-                    إجراءات
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone/10">
-                {products.map((product) => (
-                  <tr key={product.id} className="transition-colors hover:bg-cream/30">
-                    {/* Image */}
-                    <td className="px-4 py-3">
-                      {product.images?.[0]?.url ? (
-                        <img
-                          src={product.images[0].url}
-                          alt={product.title}
-                          className="h-12 w-12 rounded-lg object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cream">
-                          <Package className="h-5 w-5 text-warm-gray/50" strokeWidth={1.5} />
-                        </div>
-                      )}
-                    </td>
-
-                    {/* Title + Badges */}
-                    <td className="px-4 py-3">
-                      <p className="font-cairo text-sm font-medium text-espresso">
-                        {product.title}
-                      </p>
-                      <div className="mt-1 flex flex-wrap gap-1">
-                        {product.isFeatured && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-gold/10 px-2 py-0.5 font-cairo text-[10px] font-medium text-gold-dark">
-                            <Star className="h-2.5 w-2.5" />
-                            مميز
-                          </span>
-                        )}
-                        {product.isBestSeller && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 font-cairo text-[10px] font-medium text-success">
-                            <TrendingUp className="h-2.5 w-2.5" />
-                            الأكثر مبيعاً
-                          </span>
-                        )}
-                        {product.isNewArrival && (
-                          <span className="rounded-full bg-blue-50 px-2 py-0.5 font-cairo text-[10px] font-medium text-blue-600">
-                            جديد
-                          </span>
-                        )}
-                      </div>
-                    </td>
-
-                    {/* Category */}
-                    <td className="px-4 py-3">
-                      <span className="font-cairo text-sm text-warm-gray">
-                        {product.category?.title || product.category?.name || '—'}
-                      </span>
-                    </td>
-
-                    {/* Price */}
-                    <td className="px-4 py-3">
-                      <span className="font-cairo text-sm font-medium text-espresso">
-                        {Number(product.priceMAD || 0).toFixed(0)} د.م.
-                      </span>
-                      {product.comparePriceMAD &&
-                        Number(product.comparePriceMAD) > Number(product.priceMAD) && (
-                          <span className="mr-2 font-cairo text-xs text-warm-gray line-through">
-                            {Number(product.comparePriceMAD).toFixed(0)} د.م.
-                          </span>
-                        )}
-                    </td>
-
-                    {/* Stock */}
-                    <td className="px-4 py-3">
-                      <span
-                        className={`font-cairo text-sm font-medium ${
-                          product.stockQuantity < 5 ? 'text-error' : 'text-espresso'
-                        }`}
-                      >
-                        {product.stockQuantity}
-                      </span>
-                    </td>
-
-                    {/* Status */}
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`h-2.5 w-2.5 rounded-full ${
-                            product.availableForSale ? 'bg-success' : 'bg-warm-gray/40'
-                          }`}
-                        />
-                        <span className="font-cairo text-xs text-warm-gray">
-                          {product.availableForSale ? 'متاح' : 'غير متاح'}
+        <div className="space-y-3 lg:space-y-0">
+          {/* Mobile: Cards */}
+          <div className="space-y-3 lg:hidden">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className="rounded-xl border border-stone/30 bg-white p-4 shadow-warm"
+              >
+                <div className="flex gap-3">
+                  {product.images?.[0]?.url ? (
+                    <img
+                      src={product.images[0].url}
+                      alt={product.title}
+                      className="h-16 w-16 shrink-0 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-cream">
+                      <Package className="h-6 w-6 text-warm-gray/50" strokeWidth={1.5} />
+                    </div>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="line-clamp-2 font-cairo text-sm font-medium text-espresso">
+                      {product.title}
+                    </p>
+                    <p className="mt-1 font-cairo text-xs text-warm-gray">
+                      {product.category?.title || product.category?.name || '—'}
+                    </p>
+                    <div className="mt-1.5 flex flex-wrap gap-1">
+                      {product.isFeatured && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-gold/10 px-2 py-0.5 font-cairo text-[10px] font-medium text-gold-dark">
+                          <Star className="h-2.5 w-2.5" /> مميز
                         </span>
-                      </div>
-                    </td>
+                      )}
+                      {product.isBestSeller && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 font-cairo text-[10px] font-medium text-success">
+                          <TrendingUp className="h-2.5 w-2.5" /> الأكثر مبيعاً
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="border-stone/15 mt-3 flex items-center justify-between border-t pt-3">
+                  <div className="flex items-center gap-3">
+                    <span className="font-cairo text-sm font-bold text-espresso">
+                      {Number(product.priceMAD || 0).toFixed(0)} د.م.
+                    </span>
+                    <span
+                      className={`font-cairo text-xs ${
+                        product.stockQuantity < 5 ? 'text-error' : 'text-warm-gray'
+                      }`}
+                    >
+                      المخزون: {product.stockQuantity}
+                    </span>
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        product.availableForSale ? 'bg-success' : 'bg-warm-gray/40'
+                      }`}
+                    />
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Link
+                      href={`/admin/products/${product.id}`}
+                      className="rounded-lg p-2 text-warm-gray hover:bg-gold/10 hover:text-gold-dark"
+                    >
+                      <Pencil className="h-4 w-4" strokeWidth={1.5} />
+                    </Link>
+                    <button
+                      onClick={() => setDeleteTarget(product)}
+                      className="rounded-lg p-2 text-warm-gray hover:bg-error/10 hover:text-error"
+                    >
+                      <Trash2 className="h-4 w-4" strokeWidth={1.5} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-                    {/* Actions */}
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/admin/products/${product.id}`}
-                          className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-gold/10 hover:text-gold-dark"
-                          title="تعديل"
-                        >
-                          <Pencil className="h-4 w-4" strokeWidth={1.5} />
-                        </Link>
-                        <button
-                          onClick={() => setDeleteTarget(product)}
-                          className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-error/10 hover:text-error"
-                          title="حذف"
-                        >
-                          <Trash2 className="h-4 w-4" strokeWidth={1.5} />
-                        </button>
-                      </div>
-                    </td>
+          {/* Desktop: Table */}
+          <div className="hidden overflow-hidden rounded-xl border border-stone/30 bg-white shadow-warm lg:block">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-stone/20 bg-cream/50">
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      صورة
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      الاسم
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      القسم
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      السعر
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      المخزون
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      الحالة
+                    </th>
+                    <th className="px-4 py-3 text-right font-cairo text-xs font-medium text-warm-gray">
+                      إجراءات
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-stone/10">
+                  {products.map((product) => (
+                    <tr key={product.id} className="transition-colors hover:bg-cream/30">
+                      <td className="px-4 py-3">
+                        {product.images?.[0]?.url ? (
+                          <img
+                            src={product.images[0].url}
+                            alt={product.title}
+                            className="h-12 w-12 rounded-lg object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cream">
+                            <Package className="h-5 w-5 text-warm-gray/50" strokeWidth={1.5} />
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        <p className="font-cairo text-sm font-medium text-espresso">
+                          {product.title}
+                        </p>
+                        <div className="mt-1 flex flex-wrap gap-1">
+                          {product.isFeatured && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-gold/10 px-2 py-0.5 font-cairo text-[10px] font-medium text-gold-dark">
+                              <Star className="h-2.5 w-2.5" /> مميز
+                            </span>
+                          )}
+                          {product.isBestSeller && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 font-cairo text-[10px] font-medium text-success">
+                              <TrendingUp className="h-2.5 w-2.5" /> الأكثر مبيعاً
+                            </span>
+                          )}
+                          {product.isNewArrival && (
+                            <span className="rounded-full bg-blue-50 px-2 py-0.5 font-cairo text-[10px] font-medium text-blue-600">
+                              جديد
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="font-cairo text-sm text-warm-gray">
+                          {product.category?.title || product.category?.name || '—'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="font-cairo text-sm font-medium text-espresso">
+                          {Number(product.priceMAD || 0).toFixed(0)} د.م.
+                        </span>
+                        {product.comparePriceMAD &&
+                          Number(product.comparePriceMAD) > Number(product.priceMAD) && (
+                            <span className="mr-2 font-cairo text-xs text-warm-gray line-through">
+                              {Number(product.comparePriceMAD).toFixed(0)} د.م.
+                            </span>
+                          )}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`font-cairo text-sm font-medium ${
+                            product.stockQuantity < 5 ? 'text-error' : 'text-espresso'
+                          }`}
+                        >
+                          {product.stockQuantity}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`h-2.5 w-2.5 rounded-full ${
+                              product.availableForSale ? 'bg-success' : 'bg-warm-gray/40'
+                            }`}
+                          />
+                          <span className="font-cairo text-xs text-warm-gray">
+                            {product.availableForSale ? 'متاح' : 'غير متاح'}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/admin/products/${product.id}`}
+                            className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-gold/10 hover:text-gold-dark"
+                            title="تعديل"
+                          >
+                            <Pencil className="h-4 w-4" strokeWidth={1.5} />
+                          </Link>
+                          <button
+                            onClick={() => setDeleteTarget(product)}
+                            className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-error/10 hover:text-error"
+                            title="حذف"
+                          >
+                            <Trash2 className="h-4 w-4" strokeWidth={1.5} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between border-t border-stone/20 bg-cream/30 px-4 py-3">
+            <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
               <p className="font-cairo text-xs text-warm-gray">
                 عرض {(page - 1) * limit + 1} - {Math.min(page * limit, total)} من {total} منتج
               </p>
@@ -412,7 +477,7 @@ export default function AdminProductsPage() {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-white hover:text-espresso disabled:opacity-30 disabled:hover:bg-transparent"
+                  className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-white hover:text-espresso disabled:opacity-30"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </button>
@@ -441,7 +506,7 @@ export default function AdminProductsPage() {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-white hover:text-espresso disabled:opacity-30 disabled:hover:bg-transparent"
+                  className="rounded-lg p-2 text-warm-gray transition-colors hover:bg-white hover:text-espresso disabled:opacity-30"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>

@@ -179,7 +179,7 @@ export default function AdminDashboardPage() {
       <h1 className="font-cairo text-2xl font-bold text-espresso">لوحة التحكم</h1>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 lg:grid-cols-5">
         <StatCard
           label="إجمالي المبيعات"
           value={Number(overview?.totalRevenue || 0).toFixed(0)}

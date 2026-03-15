@@ -154,7 +154,7 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Status Filter Tabs */}
-      <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+      <div className="-mx-3 overflow-x-auto px-3 sm:mx-0 sm:px-0">
         <div className="flex gap-1.5 sm:flex-wrap sm:gap-2">
           {STATUS_TABS.map((tab) => (
             <button

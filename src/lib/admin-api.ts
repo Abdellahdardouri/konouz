@@ -70,8 +70,8 @@ async function unwrap(res: Response) {
     // API returned HTML instead of JSON (e.g. Render cold start, 404 page)
     throw new Error(
       res.status === 404
-        ? 'المورد غير موجود'
-        : `خطأ في الخادم (${res.status}). يرجى المحاولة مرة أخرى.`
+        ? 'لم يتم العثور على البيانات'
+        : `خطأ في الاتصال بالخادم (${res.status}). يرجى المحاولة مرة أخرى.`
     );
   }
   if (!res.ok) throw new Error(json.message || json.error || 'Request failed');

@@ -179,9 +179,9 @@ export default function AdminDashboardPage() {
       <h1 className="font-cairo text-lg font-bold text-espresso sm:text-2xl">لوحة التحكم</h1>
 
       {/* KPI Cards — horizontal scroll on mobile, grid on desktop */}
-      <div className="-mx-4 sm:mx-0">
+      <div className="-mx-3 sm:mx-0">
         {/* Mobile: horizontal scroll */}
-        <div className="flex gap-3 overflow-x-auto px-4 pb-2 sm:hidden">
+        <div className="flex gap-3 overflow-x-auto px-3 pb-2 sm:hidden">
           <div className="w-[160px] shrink-0">
             <StatCard
               label="إجمالي المبيعات"

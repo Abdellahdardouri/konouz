@@ -137,7 +137,7 @@ export async function getAdminProducts(
   if (params.page) query.set('page', String(params.page));
   if (params.limit) query.set('limit', String(params.limit));
   if (params.q) query.set('q', params.q);
-  if (params.category) query.set('category', params.category);
+  if (params.category) query.set('categoryId', params.category);
   return unwrap(await adminFetch(`/admin/products?${query}`));
 }
 

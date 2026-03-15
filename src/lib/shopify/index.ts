@@ -4,7 +4,11 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { Cart, Collection, Menu, Page, Product } from './types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://konouz-backend.onrender.com/api/v1'
+    : 'http://localhost:4000/api/v1');
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {

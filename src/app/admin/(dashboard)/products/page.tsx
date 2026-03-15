@@ -194,7 +194,7 @@ export default function AdminProductsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="font-cairo text-2xl font-bold text-espresso">المنتجات</h1>
+        <h1 className="font-cairo text-xl font-bold text-espresso sm:text-2xl">المنتجات</h1>
         <Link
           href="/admin/products/new"
           className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 font-cairo text-sm font-medium text-white transition-colors hover:bg-gold-dark"

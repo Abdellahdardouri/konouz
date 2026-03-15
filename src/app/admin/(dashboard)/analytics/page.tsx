@@ -122,17 +122,17 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="flex items-center gap-2 font-cairo text-2xl font-bold text-espresso">
-          <BarChart3 className="h-6 w-6 text-gold" strokeWidth={1.5} />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="flex items-center gap-2 font-cairo text-xl font-bold text-espresso sm:text-2xl">
+          <BarChart3 className="h-5 w-5 text-gold sm:h-6 sm:w-6" strokeWidth={1.5} />
           التحليلات
         </h1>
-        <div className="flex gap-2">
+        <div className="flex gap-1.5 sm:gap-2">
           {[7, 14, 30, 90].map((d) => (
             <button
               key={d}
               onClick={() => setDays(d)}
-              className={`rounded-lg px-3 py-1.5 font-cairo text-xs font-medium transition-colors ${
+              className={`rounded-lg px-2.5 py-1.5 font-cairo text-xs font-medium transition-colors sm:px-3 ${
                 days === d ? 'bg-gold text-espresso' : 'hover:bg-gold/15 bg-cream text-charcoal'
               }`}
             >
@@ -143,15 +143,15 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <div className="flex items-center gap-2 font-cairo text-sm text-warm-gray">
+      <div className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <div className="flex items-center gap-2 font-cairo text-xs text-warm-gray sm:text-sm">
             <DollarSign className="h-4 w-4" />
             إجمالي الإيرادات
           </div>
-          <p className="mt-2 font-cairo text-2xl font-bold text-espresso">
+          <p className="mt-1 font-cairo text-lg font-bold text-espresso sm:mt-2 sm:text-2xl">
             {totalRevenue.toFixed(0)}{' '}
-            <span className="text-sm font-normal text-warm-gray">د.م.</span>
+            <span className="text-xs font-normal text-warm-gray sm:text-sm">د.م.</span>
           </p>
           <div
             className={`mt-1 flex items-center gap-1 font-cairo text-xs ${
@@ -163,43 +163,46 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <div className="flex items-center gap-2 font-cairo text-sm text-warm-gray">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <div className="flex items-center gap-2 font-cairo text-xs text-warm-gray sm:text-sm">
             <ShoppingCart className="h-4 w-4" />
             إجمالي الطلبات
           </div>
-          <p className="mt-2 font-cairo text-2xl font-bold text-espresso">{totalOrders}</p>
-        </div>
-
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <div className="flex items-center gap-2 font-cairo text-sm text-warm-gray">
-            <DollarSign className="h-4 w-4" />
-            متوسط يومي
-          </div>
-          <p className="mt-2 font-cairo text-2xl font-bold text-espresso">
-            {avgDaily.toFixed(0)} <span className="text-sm font-normal text-warm-gray">د.م.</span>
+          <p className="mt-1 font-cairo text-lg font-bold text-espresso sm:mt-2 sm:text-2xl">
+            {totalOrders}
           </p>
         </div>
 
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <div className="flex items-center gap-2 font-cairo text-sm text-warm-gray">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <div className="flex items-center gap-2 font-cairo text-xs text-warm-gray sm:text-sm">
+            <DollarSign className="h-4 w-4" />
+            متوسط يومي
+          </div>
+          <p className="mt-1 font-cairo text-lg font-bold text-espresso sm:mt-2 sm:text-2xl">
+            {avgDaily.toFixed(0)}{' '}
+            <span className="text-xs font-normal text-warm-gray sm:text-sm">د.م.</span>
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <div className="flex items-center gap-2 font-cairo text-xs text-warm-gray sm:text-sm">
             <DollarSign className="h-4 w-4" />
             متوسط قيمة الطلب
           </div>
-          <p className="mt-2 font-cairo text-2xl font-bold text-espresso">
+          <p className="mt-1 font-cairo text-lg font-bold text-espresso sm:mt-2 sm:text-2xl">
             {Number(overview?.avgOrderValue || 0).toFixed(0)}{' '}
-            <span className="text-sm font-normal text-warm-gray">د.م.</span>
+            <span className="text-xs font-normal text-warm-gray sm:text-sm">د.م.</span>
           </p>
         </div>
       </div>
 
       {/* Revenue Chart */}
-      <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-        <h3 className="mb-4 font-cairo text-lg font-bold text-espresso">
+      <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+        <h3 className="mb-3 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
           الإيرادات اليومية (آخر {days} يوم)
         </h3>
         {revenue.length > 0 ? (
-          <div className="flex h-64 items-end gap-[2px]">
+          <div className="flex h-40 items-end gap-[1px] sm:h-64 sm:gap-[2px]">
             {revenue.map((d) => {
               const max = Math.max(...revenue.map((r) => Number(r.revenue)), 1);
               const height = Math.max((Number(d.revenue) / max) * 100, 1);
@@ -228,8 +231,8 @@ export default function AnalyticsPage() {
       {/* Order Status Distribution + Best Sellers */}
       <div className="grid gap-4 lg:grid-cols-2">
         {/* Order Status */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <h3 className="mb-4 font-cairo text-lg font-bold text-espresso">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <h3 className="mb-3 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
             توزيع الطلبات حسب الحالة
           </h3>
           {totalOrders > 0 ? (
@@ -265,9 +268,9 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Best Sellers */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <h3 className="mb-4 flex items-center gap-2 font-cairo text-lg font-bold text-espresso">
-            <Package className="h-5 w-5 text-gold" strokeWidth={1.5} />
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <h3 className="mb-3 flex items-center gap-2 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
+            <Package className="h-4 w-4 text-gold sm:h-5 sm:w-5" strokeWidth={1.5} />
             الأكثر مبيعاً (أعلى 10)
           </h3>
           <div className="space-y-2.5">
@@ -304,9 +307,9 @@ export default function AnalyticsPage() {
 
       {/* Low Stock Alert */}
       {lowStock.length > 0 && (
-        <div className="rounded-xl border border-error/20 bg-error/5 p-5">
-          <h3 className="mb-4 flex items-center gap-2 font-cairo text-lg font-bold text-espresso">
-            <AlertTriangle className="h-5 w-5 text-error" strokeWidth={1.5} />
+        <div className="rounded-xl border border-error/20 bg-error/5 p-3 sm:p-5">
+          <h3 className="mb-3 flex items-center gap-2 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
+            <AlertTriangle className="h-4 w-4 text-error sm:h-5 sm:w-5" strokeWidth={1.5} />
             تنبيه المخزون المنخفض
           </h3>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

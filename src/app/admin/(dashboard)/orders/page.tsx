@@ -144,28 +144,32 @@ export default function AdminOrdersPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="flex items-center gap-3 font-cairo text-2xl font-bold text-espresso">
-          <ShoppingCart className="h-6 w-6 text-gold" strokeWidth={1.5} />
+        <h1 className="flex items-center gap-2 font-cairo text-xl font-bold text-espresso sm:gap-3 sm:text-2xl">
+          <ShoppingCart className="h-5 w-5 text-gold sm:h-6 sm:w-6" strokeWidth={1.5} />
           الطلبات
         </h1>
-        {!loading && <span className="font-cairo text-sm text-warm-gray">{total} طلب</span>}
+        {!loading && (
+          <span className="font-cairo text-xs text-warm-gray sm:text-sm">{total} طلب</span>
+        )}
       </div>
 
       {/* Status Filter Tabs */}
-      <div className="flex flex-wrap gap-2">
-        {STATUS_TABS.map((tab) => (
-          <button
-            key={tab.value}
-            onClick={() => handleTabChange(tab.value)}
-            className={`rounded-full px-4 py-2 font-cairo text-sm font-medium transition-all duration-200 ${
-              activeStatus === tab.value
-                ? 'bg-gold text-white shadow-sm'
-                : 'border border-stone/30 bg-white text-charcoal hover:border-gold/50 hover:text-gold-dark'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+        <div className="flex gap-1.5 sm:flex-wrap sm:gap-2">
+          {STATUS_TABS.map((tab) => (
+            <button
+              key={tab.value}
+              onClick={() => handleTabChange(tab.value)}
+              className={`shrink-0 rounded-full px-3 py-1.5 font-cairo text-xs font-medium transition-all duration-200 sm:px-4 sm:py-2 sm:text-sm ${
+                activeStatus === tab.value
+                  ? 'bg-gold text-white shadow-sm'
+                  : 'border border-stone/30 bg-white text-charcoal hover:border-gold/50 hover:text-gold-dark'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Content */}

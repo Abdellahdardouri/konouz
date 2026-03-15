@@ -332,7 +332,7 @@ export default function AdminProductEditPage() {
         >
           <ArrowRight className="h-5 w-5" strokeWidth={1.5} />
         </Link>
-        <h1 className="font-cairo text-2xl font-bold text-espresso">
+        <h1 className="font-cairo text-lg font-bold text-espresso sm:text-2xl">
           {isNew ? 'منتج جديد' : 'تعديل المنتج'}
         </h1>
       </div>

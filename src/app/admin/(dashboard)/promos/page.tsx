@@ -122,14 +122,14 @@ export default function PromosPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="flex items-center gap-2 font-cairo text-2xl font-bold text-espresso">
-          <Ticket className="h-6 w-6 text-gold" strokeWidth={1.5} />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="flex items-center gap-2 font-cairo text-xl font-bold text-espresso sm:text-2xl">
+          <Ticket className="h-5 w-5 text-gold sm:h-6 sm:w-6" strokeWidth={1.5} />
           أكواد الخصم
         </h1>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 rounded-lg bg-gold px-4 py-2 font-cairo text-sm font-medium text-espresso transition-all hover:bg-gold-light hover:shadow-warm active:scale-[0.97]"
+          className="flex items-center gap-2 self-start rounded-lg bg-gold px-4 py-2 font-cairo text-sm font-medium text-espresso transition-all hover:bg-gold-light hover:shadow-warm active:scale-[0.97]"
         >
           <Plus className="h-4 w-4" />
           كود جديد
@@ -159,11 +159,11 @@ export default function PromosPage() {
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-gold/30 border-t-gold" />
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {promos.map((promo) => (
             <div
               key={promo.id}
-              className={`rounded-xl border bg-white p-5 shadow-warm transition-shadow hover:shadow-warm-md ${
+              className={`rounded-xl border bg-white p-4 shadow-warm transition-shadow hover:shadow-warm-md sm:p-5 ${
                 promo.isActive ? 'border-stone/30' : 'border-stone/20 opacity-60'
               }`}
             >
@@ -227,8 +227,8 @@ export default function PromosPage() {
 
       {/* Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-warm-xl">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4">
+          <div className="max-h-[90vh] w-full overflow-y-auto rounded-t-2xl bg-white p-4 shadow-warm-xl sm:max-w-md sm:rounded-2xl sm:p-6">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="font-cairo text-lg font-bold text-espresso">
                 {editingId ? 'تعديل كود الخصم' : 'كود خصم جديد'}

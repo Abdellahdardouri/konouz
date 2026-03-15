@@ -99,11 +99,11 @@ export default function CustomersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="flex items-center gap-2 font-cairo text-2xl font-bold text-espresso">
-          <Users className="h-6 w-6 text-gold" strokeWidth={1.5} />
+        <h1 className="flex items-center gap-2 font-cairo text-xl font-bold text-espresso sm:text-2xl">
+          <Users className="h-5 w-5 text-gold sm:h-6 sm:w-6" strokeWidth={1.5} />
           العملاء
         </h1>
-        <span className="font-cairo text-sm text-warm-gray">{total} عميل</span>
+        <span className="font-cairo text-xs text-warm-gray sm:text-sm">{total} عميل</span>
       </div>
 
       {loading ? (
@@ -264,8 +264,8 @@ export default function CustomersPage() {
 
       {/* Customer Detail Modal */}
       {(selectedCustomer || detailLoading) && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-6 shadow-warm-xl">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4">
+          <div className="relative max-h-[90vh] w-full overflow-y-auto rounded-t-2xl bg-white p-4 shadow-warm-xl sm:max-w-2xl sm:rounded-2xl sm:p-6">
             <button
               onClick={() => setSelectedCustomer(null)}
               className="absolute left-4 top-4 text-warm-gray transition-colors hover:text-espresso"

@@ -333,7 +333,9 @@ export default function AdminOrderDetailPage() {
           >
             <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
           </button>
-          <h1 className="font-cairo text-2xl font-bold text-espresso">طلب #{order.orderNumber}</h1>
+          <h1 className="font-cairo text-lg font-bold text-espresso sm:text-2xl">
+            طلب #{order.orderNumber}
+          </h1>
         </div>
 
         <StatusDropdown
@@ -349,7 +351,7 @@ export default function AdminOrderDetailPage() {
         <div className="space-y-6 lg:col-span-2">
           {/* Items Card */}
           <div className="rounded-xl border border-stone/30 bg-white shadow-warm">
-            <div className="border-stone/15 border-b px-5 py-4">
+            <div className="border-stone/15 border-b px-3 py-3 sm:px-5 sm:py-4">
               <h2 className="flex items-center gap-2 font-cairo text-base font-bold text-espresso">
                 <Package className="h-5 w-5 text-gold" strokeWidth={1.5} />
                 عناصر الطلب
@@ -364,9 +366,12 @@ export default function AdminOrderDetailPage() {
                   const imageUrl = item.product?.images?.[0]?.url;
                   const lineTotal = Number(item.priceMAD) * item.quantity;
                   return (
-                    <div key={item.id} className="flex items-center gap-4 px-5 py-4">
+                    <div
+                      key={item.id}
+                      className="flex items-center gap-3 px-3 py-3 sm:gap-4 sm:px-5 sm:py-4"
+                    >
                       {/* Image */}
-                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-cream">
+                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-cream sm:h-16 sm:w-16">
                         {imageUrl ? (
                           <img
                             src={imageUrl}
@@ -408,13 +413,13 @@ export default function AdminOrderDetailPage() {
 
           {/* Customer Info Card */}
           <div className="rounded-xl border border-stone/30 bg-white shadow-warm">
-            <div className="border-stone/15 border-b px-5 py-4">
+            <div className="border-stone/15 border-b px-3 py-3 sm:px-5 sm:py-4">
               <h2 className="flex items-center gap-2 font-cairo text-base font-bold text-espresso">
                 <User className="h-5 w-5 text-gold" strokeWidth={1.5} />
                 معلومات العميل
               </h2>
             </div>
-            <div className="grid gap-4 p-5 sm:grid-cols-2">
+            <div className="grid gap-3 p-3 sm:grid-cols-2 sm:gap-4 sm:p-5">
               <div className="flex items-start gap-3">
                 <User className="mt-0.5 h-4 w-4 shrink-0 text-warm-gray" strokeWidth={1.5} />
                 <div>
@@ -464,10 +469,10 @@ export default function AdminOrderDetailPage() {
         <div className="space-y-6">
           {/* Order Summary Card */}
           <div className="rounded-xl border border-stone/30 bg-white shadow-warm">
-            <div className="border-stone/15 border-b px-5 py-4">
+            <div className="border-stone/15 border-b px-3 py-3 sm:px-5 sm:py-4">
               <h2 className="font-cairo text-base font-bold text-espresso">ملخص الطلب</h2>
             </div>
-            <div className="space-y-3 p-5">
+            <div className="space-y-3 p-3 sm:p-5">
               {order.subtotalMAD != null && (
                 <div className="flex items-center justify-between">
                   <span className="font-cairo text-sm text-warm-gray">المجموع الفرعي</span>
@@ -514,13 +519,13 @@ export default function AdminOrderDetailPage() {
 
           {/* Payment Info Card */}
           <div className="rounded-xl border border-stone/30 bg-white shadow-warm">
-            <div className="border-stone/15 border-b px-5 py-4">
+            <div className="border-stone/15 border-b px-3 py-3 sm:px-5 sm:py-4">
               <h2 className="flex items-center gap-2 font-cairo text-base font-bold text-espresso">
                 <CreditCard className="h-5 w-5 text-gold" strokeWidth={1.5} />
                 معلومات الدفع
               </h2>
             </div>
-            <div className="space-y-3 p-5">
+            <div className="space-y-3 p-3 sm:p-5">
               <div className="flex items-center justify-between">
                 <span className="font-cairo text-sm text-warm-gray">طريقة الدفع</span>
                 <span className="font-cairo text-sm font-medium text-charcoal">
@@ -559,13 +564,13 @@ export default function AdminOrderDetailPage() {
 
           {/* Dates Card */}
           <div className="rounded-xl border border-stone/30 bg-white shadow-warm">
-            <div className="border-stone/15 border-b px-5 py-4">
+            <div className="border-stone/15 border-b px-3 py-3 sm:px-5 sm:py-4">
               <h2 className="flex items-center gap-2 font-cairo text-base font-bold text-espresso">
                 <Calendar className="h-5 w-5 text-gold" strokeWidth={1.5} />
                 التواريخ
               </h2>
             </div>
-            <div className="space-y-3 p-5">
+            <div className="space-y-3 p-3 sm:p-5">
               <div>
                 <p className="font-cairo text-xs text-warm-gray">تاريخ الإنشاء</p>
                 <p className="mt-0.5 font-cairo text-sm text-charcoal">

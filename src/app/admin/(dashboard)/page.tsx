@@ -89,13 +89,15 @@ function StatCard({
   suffix?: string;
 }) {
   return (
-    <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm transition-shadow hover:shadow-warm-md">
+    <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm transition-shadow hover:shadow-warm-md sm:p-5">
       <div className="flex items-start justify-between">
         <div>
-          <p className="font-cairo text-sm text-warm-gray">{label}</p>
-          <p className="mt-2 font-cairo text-2xl font-bold text-espresso">
+          <p className="font-cairo text-xs text-warm-gray sm:text-sm">{label}</p>
+          <p className="mt-1 font-cairo text-lg font-bold text-espresso sm:mt-2 sm:text-2xl">
             {value}
-            {suffix && <span className="mr-1 text-sm font-normal text-warm-gray">{suffix}</span>}
+            {suffix && (
+              <span className="mr-1 text-xs font-normal text-warm-gray sm:text-sm">{suffix}</span>
+            )}
           </p>
         </div>
         <div className={`rounded-lg p-2.5 ${color}`}>
@@ -113,7 +115,7 @@ function RevenueChart({ data }: { data: RevenuePoint[] }) {
   const last7 = data.slice(-14);
 
   return (
-    <div className="flex h-48 items-end gap-1">
+    <div className="flex h-32 items-end gap-0.5 sm:h-48 sm:gap-1">
       {last7.map((d) => {
         const height = Math.max((Number(d.revenue) / max) * 100, 2);
         return (
@@ -176,7 +178,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-cairo text-2xl font-bold text-espresso">لوحة التحكم</h1>
+      <h1 className="font-cairo text-xl font-bold text-espresso sm:text-2xl">لوحة التحكم</h1>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 lg:grid-cols-5">
@@ -216,15 +218,17 @@ export default function AdminDashboardPage() {
 
       {/* Revenue Chart + Order Status */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm lg:col-span-2">
-          <h3 className="mb-4 font-cairo text-lg font-bold text-espresso">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5 lg:col-span-2">
+          <h3 className="mb-3 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
             الإيرادات (آخر 14 يوم)
           </h3>
           <RevenueChart data={revenue} />
         </div>
 
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <h3 className="mb-4 font-cairo text-lg font-bold text-espresso">حالة الطلبات</h3>
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <h3 className="mb-3 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
+            حالة الطلبات
+          </h3>
           <div className="space-y-2">
             {orderStats.map((s) => (
               <div
@@ -253,9 +257,9 @@ export default function AdminDashboardPage() {
       {/* Best Sellers + Low Stock */}
       <div className="grid gap-4 lg:grid-cols-2">
         {/* Best Sellers */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <h3 className="mb-4 flex items-center gap-2 font-cairo text-lg font-bold text-espresso">
-            <Package className="h-5 w-5 text-gold" strokeWidth={1.5} />
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <h3 className="mb-3 flex items-center gap-2 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
+            <Package className="h-4 w-4 text-gold sm:h-5 sm:w-5" strokeWidth={1.5} />
             الأكثر مبيعاً
           </h3>
           <div className="space-y-3">
@@ -286,9 +290,9 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Low Stock */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
-          <h3 className="mb-4 flex items-center gap-2 font-cairo text-lg font-bold text-espresso">
-            <AlertTriangle className="h-5 w-5 text-error" strokeWidth={1.5} />
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
+          <h3 className="mb-3 flex items-center gap-2 font-cairo text-sm font-bold text-espresso sm:mb-4 sm:text-lg">
+            <AlertTriangle className="h-4 w-4 text-error sm:h-5 sm:w-5" strokeWidth={1.5} />
             مخزون منخفض
           </h3>
           <div className="space-y-3">

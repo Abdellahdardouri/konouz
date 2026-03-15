@@ -512,7 +512,9 @@ export default function CategoriesPage() {
             <FolderTree className="h-6 w-6 text-gold" strokeWidth={1.5} />
           </div>
           <div>
-            <h1 className="font-cairo text-2xl font-bold text-espresso">إدارة الأقسام</h1>
+            <h1 className="font-cairo text-xl font-bold text-espresso sm:text-2xl">
+              إدارة الأقسام
+            </h1>
             <p className="font-cairo text-sm text-warm-gray">{categories.length} قسم</p>
           </div>
         </div>

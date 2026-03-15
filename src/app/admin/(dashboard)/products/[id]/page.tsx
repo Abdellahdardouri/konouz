@@ -369,7 +369,7 @@ export default function AdminProductEditPage() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Basic Info */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
           <h2 className="mb-4 font-cairo text-base font-bold text-espresso">المعلومات الأساسية</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {/* Title */}
@@ -457,7 +457,7 @@ export default function AdminProductEditPage() {
         </div>
 
         {/* Pricing & Stock */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
           <h2 className="mb-4 font-cairo text-base font-bold text-espresso">السعر والمخزون</h2>
           <div className="grid gap-4 sm:grid-cols-3">
             {/* Price */}
@@ -520,7 +520,7 @@ export default function AdminProductEditPage() {
         </div>
 
         {/* Images */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
           <h2 className="mb-4 font-cairo text-base font-bold text-espresso">صور المنتج</h2>
 
           {/* Existing Images */}
@@ -620,7 +620,7 @@ export default function AdminProductEditPage() {
         </div>
 
         {/* Toggles */}
-        <div className="rounded-xl border border-stone/30 bg-white p-5 shadow-warm">
+        <div className="rounded-xl border border-stone/30 bg-white p-3 shadow-warm sm:p-5">
           <h2 className="mb-4 font-cairo text-base font-bold text-espresso">خيارات العرض</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <Toggle label="متاح للبيع" checked={availableForSale} onChange={setAvailableForSale} />

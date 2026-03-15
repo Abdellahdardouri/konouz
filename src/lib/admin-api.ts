@@ -62,7 +62,18 @@ async function adminFetch(path: string, options: RequestInit = {}): Promise<Resp
 // Unwrap { success, data: {...}, meta?: {...} } pattern from API responses
 // If response has meta (pagination), merge it with data for list endpoints
 async function unwrap(res: Response) {
-  const json = await res.json();
+  const text = await res.text();
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    // API returned HTML instead of JSON (e.g. Render cold start, 404 page)
+    throw new Error(
+      res.status === 404
+        ? 'المورد غير موجود'
+        : `خطأ في الخادم (${res.status}). يرجى المحاولة مرة أخرى.`
+    );
+  }
   if (!res.ok) throw new Error(json.message || json.error || 'Request failed');
   const data = json.data !== undefined ? json.data : json;
   // For paginated list responses, return { data: [...], ...meta }

@@ -320,20 +320,20 @@ export default function AdminOrderDetailPage() {
   const stripeId = order.payment?.stripePaymentId || order.stripePaymentId;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Toast */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2 sm:gap-4">
           <button
             onClick={() => router.push('/admin/orders')}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-stone/30 bg-white text-charcoal transition-colors hover:border-gold hover:text-gold"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-stone/30 bg-white text-charcoal transition-colors hover:border-gold hover:text-gold sm:h-9 sm:w-9"
           >
             <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
           </button>
-          <h1 className="font-cairo text-lg font-bold text-espresso sm:text-2xl">
+          <h1 className="font-cairo text-base font-bold text-espresso sm:text-2xl">
             طلب #{order.orderNumber}
           </h1>
         </div>
@@ -346,9 +346,9 @@ export default function AdminOrderDetailPage() {
       </div>
 
       {/* Main Grid */}
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
         {/* Left: Order Items (2 cols) */}
-        <div className="space-y-6 lg:col-span-2">
+        <div className="space-y-4 sm:space-y-6 lg:col-span-2">
           {/* Items Card */}
           <div className="rounded-xl border border-stone/30 bg-white shadow-warm">
             <div className="border-stone/15 border-b px-3 py-3 sm:px-5 sm:py-4">

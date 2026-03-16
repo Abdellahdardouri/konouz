@@ -90,8 +90,27 @@ export async function adminLogin(email: string, password: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message || json.error || 'Login failed');
+  const text = await res.text();
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    // Backend returned HTML (Render cold start) — retry once after a short delay
+    await new Promise((r) => setTimeout(r, 3000));
+    const retry = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const retryText = await retry.text();
+    try {
+      json = JSON.parse(retryText);
+    } catch {
+      throw new Error('الخادم قيد التشغيل، يرجى المحاولة مرة أخرى بعد لحظات');
+    }
+    if (!retry.ok) throw new Error(json.message || json.error || 'بيانات الدخول غير صحيحة');
+  }
+  if (!res.ok && json) throw new Error(json.message || json.error || 'بيانات الدخول غير صحيحة');
   // API may wrap response in { success, data: {...} }
   const data = json.data || json;
   if (data.user?.role !== 'ADMIN') {

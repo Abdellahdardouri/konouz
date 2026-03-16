@@ -66,6 +66,10 @@ module.exports = {
         shimmer: {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' }
+        },
+        whatsappPulse: {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(37, 211, 102, 0.5)' },
+          '50%': { boxShadow: '0 0 0 12px rgba(37, 211, 102, 0)' }
         }
       },
       animation: {
@@ -75,7 +79,8 @@ module.exports = {
         fadeUp: 'fadeUp 0.5s ease-out forwards',
         fadeUpDelay: '0.5s ease-out 0.25s forwards fadeUp',
         fadeOut: 'fadeOut 0.5s ease-out forwards',
-        shimmer: 'shimmer 2s ease-in-out infinite'
+        shimmer: 'shimmer 2s ease-in-out infinite',
+        whatsappPulse: 'whatsappPulse 2s ease-in-out infinite'
       }
     }
   },

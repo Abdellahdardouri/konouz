@@ -97,7 +97,7 @@ const ProductCard = ({
         </div>
 
         {/* Text section */}
-        <div className="border-t border-stone/30 bg-cream/40 px-2.5 py-2 sm:p-4">
+        <div className="border-t border-stone/30 bg-cream px-2.5 py-2 sm:p-4">
           <h3 className="line-clamp-2 font-cairo text-[13px] font-medium leading-snug text-darkPurple sm:text-[15px]">
             {product.title}
           </h3>
@@ -139,7 +139,7 @@ const ProductCard = ({
       </a>
 
       {/* Add to cart button - outside the <a> to avoid invalid HTML nesting */}
-      <div className="px-2.5 pb-2.5 sm:px-4 sm:pb-4">
+      <div className="bg-cream px-2.5 pb-2.5 sm:px-4 sm:pb-4">
         <button
           onClick={(e) => {
             e.stopPropagation();
